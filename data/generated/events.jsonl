@@ -1,0 +1,210 @@
+{"asset_code":"CCTV-1E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T00:00:00Z"}
+{"asset_code":"CCTV-2E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T00:00:00Z"}
+{"asset_code":"CCTV-3E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T00:00:00Z"}
+{"asset_code":"CCTV-IT","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T00:00:00Z"}
+{"asset_code":"CCTV-LOBBY","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T00:00:00Z"}
+{"asset_code":"CCTV-PARK","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T00:00:00Z"}
+{"asset_code":"FA-PANEL-01","details":"Synthetic fire-panel heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T00:00:00Z"}
+{"asset_code":"AC-RDR-LOBBY","details":"Synthetic access-control activity.","event_type":"access_granted","severity":"info","ts":"2026-11-01T00:05:00Z"}
+{"asset_code":"CCTV-1E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T01:00:00Z"}
+{"asset_code":"CCTV-2E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T01:00:00Z"}
+{"asset_code":"CCTV-3E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T01:00:00Z"}
+{"asset_code":"CCTV-IT","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T01:00:00Z"}
+{"asset_code":"CCTV-LOBBY","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T01:00:00Z"}
+{"asset_code":"CCTV-PARK","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T01:00:00Z"}
+{"asset_code":"FA-PANEL-01","details":"Synthetic fire-panel heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T01:00:00Z"}
+{"asset_code":"AC-RDR-PARK","details":"Synthetic access-control activity.","event_type":"access_denied","severity":"warning","ts":"2026-11-01T01:05:00Z"}
+{"asset_code":"CCTV-1E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T02:00:00Z"}
+{"asset_code":"CCTV-2E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T02:00:00Z"}
+{"asset_code":"CCTV-3E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T02:00:00Z"}
+{"asset_code":"CCTV-IT","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T02:00:00Z"}
+{"asset_code":"CCTV-LOBBY","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T02:00:00Z"}
+{"asset_code":"CCTV-PARK","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T02:00:00Z"}
+{"asset_code":"FA-PANEL-01","details":"Synthetic fire-panel heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T02:00:00Z"}
+{"asset_code":"AC-RDR-IT","details":"Synthetic access-control activity.","event_type":"door_held_open","severity":"warning","ts":"2026-11-01T02:05:00Z"}
+{"asset_code":"CCTV-1E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T03:00:00Z"}
+{"asset_code":"CCTV-2E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T03:00:00Z"}
+{"asset_code":"CCTV-3E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T03:00:00Z"}
+{"asset_code":"CCTV-IT","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T03:00:00Z"}
+{"asset_code":"CCTV-LOBBY","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T03:00:00Z"}
+{"asset_code":"CCTV-PARK","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T03:00:00Z"}
+{"asset_code":"FA-PANEL-01","details":"Synthetic fire-panel heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T03:00:00Z"}
+{"asset_code":"AC-RDR-1E","details":"Synthetic access-control activity.","event_type":"access_granted","severity":"info","ts":"2026-11-01T03:05:00Z"}
+{"asset_code":"CCTV-LOBBY","details":"Synthetic CCTV motion detection.","event_type":"motion_detected","severity":"info","ts":"2026-11-01T03:15:00Z"}
+{"asset_code":"CCTV-1E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T04:00:00Z"}
+{"asset_code":"CCTV-2E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T04:00:00Z"}
+{"asset_code":"CCTV-3E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T04:00:00Z"}
+{"asset_code":"CCTV-IT","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T04:00:00Z"}
+{"asset_code":"CCTV-LOBBY","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T04:00:00Z"}
+{"asset_code":"CCTV-PARK","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T04:00:00Z"}
+{"asset_code":"FA-PANEL-01","details":"Synthetic fire-panel heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T04:00:00Z"}
+{"asset_code":"AC-RDR-2E","details":"Synthetic access-control activity.","event_type":"access_denied","severity":"warning","ts":"2026-11-01T04:05:00Z"}
+{"asset_code":"CCTV-1E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T05:00:00Z"}
+{"asset_code":"CCTV-2E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T05:00:00Z"}
+{"asset_code":"CCTV-3E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T05:00:00Z"}
+{"asset_code":"CCTV-IT","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T05:00:00Z"}
+{"asset_code":"CCTV-LOBBY","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T05:00:00Z"}
+{"asset_code":"CCTV-PARK","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T05:00:00Z"}
+{"asset_code":"FA-PANEL-01","details":"Synthetic fire-panel heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T05:00:00Z"}
+{"asset_code":"AC-RDR-3E","details":"Synthetic access-control activity.","event_type":"door_held_open","severity":"warning","ts":"2026-11-01T05:05:00Z"}
+{"asset_code":"CCTV-1E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T06:00:00Z"}
+{"asset_code":"CCTV-2E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T06:00:00Z"}
+{"asset_code":"CCTV-3E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T06:00:00Z"}
+{"asset_code":"CCTV-IT","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T06:00:00Z"}
+{"asset_code":"CCTV-LOBBY","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T06:00:00Z"}
+{"asset_code":"CCTV-PARK","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T06:00:00Z"}
+{"asset_code":"FA-PANEL-01","details":"Synthetic fire-panel heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T06:00:00Z"}
+{"asset_code":"AC-RDR-LOBBY","details":"Synthetic access-control activity.","event_type":"access_granted","severity":"info","ts":"2026-11-01T06:05:00Z"}
+{"asset_code":"HVAC-AHU-01","details":"Synthetic HVAC filter maintenance alert.","event_type":"filter_alarm","severity":"warning","ts":"2026-11-01T06:10:00Z"}
+{"asset_code":"CCTV-1E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T07:00:00Z"}
+{"asset_code":"CCTV-2E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T07:00:00Z"}
+{"asset_code":"CCTV-3E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T07:00:00Z"}
+{"asset_code":"CCTV-IT","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T07:00:00Z"}
+{"asset_code":"CCTV-LOBBY","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T07:00:00Z"}
+{"asset_code":"CCTV-PARK","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T07:00:00Z"}
+{"asset_code":"FA-PANEL-01","details":"Synthetic fire-panel heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T07:00:00Z"}
+{"asset_code":"AC-RDR-PARK","details":"Synthetic access-control activity.","event_type":"access_denied","severity":"warning","ts":"2026-11-01T07:05:00Z"}
+{"asset_code":"CCTV-1E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T08:00:00Z"}
+{"asset_code":"CCTV-2E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T08:00:00Z"}
+{"asset_code":"CCTV-3E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T08:00:00Z"}
+{"asset_code":"CCTV-IT","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T08:00:00Z"}
+{"asset_code":"CCTV-LOBBY","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T08:00:00Z"}
+{"asset_code":"CCTV-PARK","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T08:00:00Z"}
+{"asset_code":"FA-PANEL-01","details":"Synthetic fire-panel heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T08:00:00Z"}
+{"asset_code":"AC-RDR-IT","details":"Synthetic access-control activity.","event_type":"door_held_open","severity":"warning","ts":"2026-11-01T08:05:00Z"}
+{"asset_code":"NET-SW-1","details":"Synthetic network link-down event.","event_type":"link_down","severity":"warning","ts":"2026-11-01T08:10:00Z"}
+{"asset_code":"NET-SW-1","details":"Synthetic network link-restored event.","event_type":"link_up","severity":"info","ts":"2026-11-01T08:25:00Z"}
+{"asset_code":"CCTV-1E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T09:00:00Z"}
+{"asset_code":"CCTV-2E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T09:00:00Z"}
+{"asset_code":"CCTV-3E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T09:00:00Z"}
+{"asset_code":"CCTV-IT","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T09:00:00Z"}
+{"asset_code":"CCTV-LOBBY","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T09:00:00Z"}
+{"asset_code":"CCTV-PARK","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T09:00:00Z"}
+{"asset_code":"FA-PANEL-01","details":"Synthetic fire-panel heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T09:00:00Z"}
+{"asset_code":"AC-RDR-1E","details":"Synthetic access-control activity.","event_type":"access_granted","severity":"info","ts":"2026-11-01T09:05:00Z"}
+{"asset_code":"CCTV-1E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T10:00:00Z"}
+{"asset_code":"CCTV-2E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T10:00:00Z"}
+{"asset_code":"CCTV-3E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T10:00:00Z"}
+{"asset_code":"CCTV-IT","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T10:00:00Z"}
+{"asset_code":"CCTV-LOBBY","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T10:00:00Z"}
+{"asset_code":"CCTV-PARK","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T10:00:00Z"}
+{"asset_code":"FA-PANEL-01","details":"Synthetic fire-panel heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T10:00:00Z"}
+{"asset_code":"AC-RDR-2E","details":"Synthetic access-control activity.","event_type":"access_denied","severity":"warning","ts":"2026-11-01T10:05:00Z"}
+{"asset_code":"CCTV-IT","details":"Synthetic CCTV camera-offline event.","event_type":"camera_offline","severity":"warning","ts":"2026-11-01T10:10:00Z"}
+{"asset_code":"CCTV-1E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T11:00:00Z"}
+{"asset_code":"CCTV-2E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T11:00:00Z"}
+{"asset_code":"CCTV-3E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T11:00:00Z"}
+{"asset_code":"CCTV-IT","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T11:00:00Z"}
+{"asset_code":"CCTV-LOBBY","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T11:00:00Z"}
+{"asset_code":"CCTV-PARK","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T11:00:00Z"}
+{"asset_code":"FA-PANEL-01","details":"Synthetic fire-panel heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T11:00:00Z"}
+{"asset_code":"AC-RDR-3E","details":"Synthetic access-control activity.","event_type":"door_held_open","severity":"warning","ts":"2026-11-01T11:05:00Z"}
+{"asset_code":"CCTV-IT","details":"Synthetic CCTV camera-online event.","event_type":"camera_online","severity":"info","ts":"2026-11-01T11:10:00Z"}
+{"asset_code":"CCTV-1E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T12:00:00Z"}
+{"asset_code":"CCTV-2E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T12:00:00Z"}
+{"asset_code":"CCTV-3E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T12:00:00Z"}
+{"asset_code":"CCTV-IT","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T12:00:00Z"}
+{"asset_code":"CCTV-LOBBY","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T12:00:00Z"}
+{"asset_code":"CCTV-PARK","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T12:00:00Z"}
+{"asset_code":"FA-PANEL-01","details":"Synthetic fire-panel heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T12:00:00Z"}
+{"asset_code":"AC-RDR-LOBBY","details":"Synthetic access-control activity.","event_type":"access_granted","severity":"info","ts":"2026-11-01T12:05:00Z"}
+{"asset_code":"FA-DET-2E","details":"Synthetic detector troubleshooting event.","event_type":"detector_trouble","severity":"warning","ts":"2026-11-01T12:30:00Z"}
+{"asset_code":"CCTV-1E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T13:00:00Z"}
+{"asset_code":"CCTV-2E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T13:00:00Z"}
+{"asset_code":"CCTV-3E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T13:00:00Z"}
+{"asset_code":"CCTV-IT","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T13:00:00Z"}
+{"asset_code":"CCTV-LOBBY","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T13:00:00Z"}
+{"asset_code":"CCTV-PARK","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T13:00:00Z"}
+{"asset_code":"FA-PANEL-01","details":"Synthetic fire-panel heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T13:00:00Z"}
+{"asset_code":"AC-RDR-PARK","details":"Synthetic access-control activity.","event_type":"access_denied","severity":"warning","ts":"2026-11-01T13:05:00Z"}
+{"asset_code":"CCTV-1E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T14:00:00Z"}
+{"asset_code":"CCTV-2E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T14:00:00Z"}
+{"asset_code":"CCTV-3E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T14:00:00Z"}
+{"asset_code":"CCTV-IT","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T14:00:00Z"}
+{"asset_code":"CCTV-LOBBY","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T14:00:00Z"}
+{"asset_code":"CCTV-PARK","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T14:00:00Z"}
+{"asset_code":"FA-PANEL-01","details":"Synthetic fire-panel heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T14:00:00Z"}
+{"asset_code":"AC-RDR-IT","details":"Synthetic access-control activity.","event_type":"door_held_open","severity":"warning","ts":"2026-11-01T14:05:00Z"}
+{"asset_code":"NET-CORE-01","details":"Synthetic network latency event.","event_type":"high_latency","severity":"warning","ts":"2026-11-01T14:40:00Z"}
+{"asset_code":"CCTV-1E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T15:00:00Z"}
+{"asset_code":"CCTV-2E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T15:00:00Z"}
+{"asset_code":"CCTV-3E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T15:00:00Z"}
+{"asset_code":"CCTV-IT","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T15:00:00Z"}
+{"asset_code":"CCTV-LOBBY","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T15:00:00Z"}
+{"asset_code":"CCTV-PARK","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T15:00:00Z"}
+{"asset_code":"FA-PANEL-01","details":"Synthetic fire-panel heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T15:00:00Z"}
+{"asset_code":"AC-RDR-1E","details":"Synthetic access-control activity.","event_type":"access_granted","severity":"info","ts":"2026-11-01T15:05:00Z"}
+{"asset_code":"CCTV-1E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T16:00:00Z"}
+{"asset_code":"CCTV-2E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T16:00:00Z"}
+{"asset_code":"CCTV-3E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T16:00:00Z"}
+{"asset_code":"CCTV-IT","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T16:00:00Z"}
+{"asset_code":"CCTV-LOBBY","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T16:00:00Z"}
+{"asset_code":"CCTV-PARK","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T16:00:00Z"}
+{"asset_code":"FA-PANEL-01","details":"Synthetic fire-panel heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T16:00:00Z"}
+{"asset_code":"AC-RDR-2E","details":"Synthetic access-control activity.","event_type":"access_denied","severity":"warning","ts":"2026-11-01T16:05:00Z"}
+{"asset_code":"CCTV-1E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T17:00:00Z"}
+{"asset_code":"CCTV-2E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T17:00:00Z"}
+{"asset_code":"CCTV-3E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T17:00:00Z"}
+{"asset_code":"CCTV-IT","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T17:00:00Z"}
+{"asset_code":"CCTV-LOBBY","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T17:00:00Z"}
+{"asset_code":"CCTV-PARK","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T17:00:00Z"}
+{"asset_code":"FA-PANEL-01","details":"Synthetic fire-panel heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T17:00:00Z"}
+{"asset_code":"AC-RDR-3E","details":"Synthetic access-control activity.","event_type":"door_held_open","severity":"warning","ts":"2026-11-01T17:05:00Z"}
+{"asset_code":"HVAC-AHU-02","details":"Synthetic HVAC high-temperature event.","event_type":"high_temperature","severity":"critical","ts":"2026-11-01T17:20:00Z"}
+{"asset_code":"CCTV-1E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T18:00:00Z"}
+{"asset_code":"CCTV-2E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T18:00:00Z"}
+{"asset_code":"CCTV-3E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T18:00:00Z"}
+{"asset_code":"CCTV-IT","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T18:00:00Z"}
+{"asset_code":"CCTV-LOBBY","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T18:00:00Z"}
+{"asset_code":"CCTV-PARK","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T18:00:00Z"}
+{"asset_code":"FA-PANEL-01","details":"Synthetic fire-panel heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T18:00:00Z"}
+{"asset_code":"AC-RDR-LOBBY","details":"Synthetic access-control activity.","event_type":"access_granted","severity":"info","ts":"2026-11-01T18:05:00Z"}
+{"asset_code":"CCTV-1E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T19:00:00Z"}
+{"asset_code":"CCTV-2E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T19:00:00Z"}
+{"asset_code":"CCTV-3E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T19:00:00Z"}
+{"asset_code":"CCTV-IT","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T19:00:00Z"}
+{"asset_code":"CCTV-LOBBY","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T19:00:00Z"}
+{"asset_code":"CCTV-PARK","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T19:00:00Z"}
+{"asset_code":"FA-PANEL-01","details":"Synthetic fire-panel heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T19:00:00Z"}
+{"asset_code":"AC-RDR-PARK","details":"Synthetic access-control activity.","event_type":"access_denied","severity":"warning","ts":"2026-11-01T19:05:00Z"}
+{"asset_code":"CCTV-1E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T20:00:00Z"}
+{"asset_code":"CCTV-2E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T20:00:00Z"}
+{"asset_code":"CCTV-3E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T20:00:00Z"}
+{"asset_code":"CCTV-IT","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T20:00:00Z"}
+{"asset_code":"CCTV-LOBBY","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T20:00:00Z"}
+{"asset_code":"CCTV-PARK","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T20:00:00Z"}
+{"asset_code":"FA-PANEL-01","details":"Synthetic scheduled fire alarm test.","event_type":"alarm_test","severity":"info","ts":"2026-11-01T20:00:00Z"}
+{"asset_code":"FA-PANEL-01","details":"Synthetic fire-panel heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T20:00:00Z"}
+{"asset_code":"AC-RDR-IT","details":"Synthetic access-control activity.","event_type":"door_held_open","severity":"warning","ts":"2026-11-01T20:05:00Z"}
+{"asset_code":"CCTV-1E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T21:00:00Z"}
+{"asset_code":"CCTV-2E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T21:00:00Z"}
+{"asset_code":"CCTV-3E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T21:00:00Z"}
+{"asset_code":"CCTV-IT","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T21:00:00Z"}
+{"asset_code":"CCTV-LOBBY","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T21:00:00Z"}
+{"asset_code":"CCTV-PARK","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T21:00:00Z"}
+{"asset_code":"FA-PANEL-01","details":"Synthetic fire-panel heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T21:00:00Z"}
+{"asset_code":"AC-RDR-1E","details":"Synthetic access-control activity.","event_type":"access_granted","severity":"info","ts":"2026-11-01T21:05:00Z"}
+{"asset_code":"CCTV-1E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T22:00:00Z"}
+{"asset_code":"CCTV-2E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T22:00:00Z"}
+{"asset_code":"CCTV-3E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T22:00:00Z"}
+{"asset_code":"CCTV-IT","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T22:00:00Z"}
+{"asset_code":"CCTV-LOBBY","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T22:00:00Z"}
+{"asset_code":"CCTV-PARK","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T22:00:00Z"}
+{"asset_code":"FA-PANEL-01","details":"Synthetic fire-panel heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T22:00:00Z"}
+{"asset_code":"AC-RDR-2E","details":"Synthetic access-control activity.","event_type":"access_denied","severity":"warning","ts":"2026-11-01T22:05:00Z"}
+{"asset_code":"CCTV-1E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T23:00:00Z"}
+{"asset_code":"CCTV-2E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T23:00:00Z"}
+{"asset_code":"CCTV-3E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T23:00:00Z"}
+{"asset_code":"CCTV-IT","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T23:00:00Z"}
+{"asset_code":"CCTV-LOBBY","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T23:00:00Z"}
+{"asset_code":"CCTV-PARK","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T23:00:00Z"}
+{"asset_code":"FA-PANEL-01","details":"Synthetic fire-panel heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-01T23:00:00Z"}
+{"asset_code":"AC-RDR-3E","details":"Synthetic access-control activity.","event_type":"door_held_open","severity":"warning","ts":"2026-11-01T23:05:00Z"}
+{"asset_code":"CCTV-1E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-02T00:00:00Z"}
+{"asset_code":"CCTV-2E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-02T00:00:00Z"}
+{"asset_code":"CCTV-3E","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-02T00:00:00Z"}
+{"asset_code":"CCTV-IT","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-02T00:00:00Z"}
+{"asset_code":"CCTV-LOBBY","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-02T00:00:00Z"}
+{"asset_code":"CCTV-PARK","details":"Synthetic CCTV camera heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-02T00:00:00Z"}
+{"asset_code":"FA-PANEL-01","details":"Synthetic fire-panel heartbeat.","event_type":"heartbeat","severity":"info","ts":"2026-11-02T00:00:00Z"}
+{"asset_code":"AC-RDR-LOBBY","details":"Synthetic access-control activity.","event_type":"access_granted","severity":"info","ts":"2026-11-02T00:05:00Z"}
