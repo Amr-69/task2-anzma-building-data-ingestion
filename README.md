@@ -1,354 +1,295 @@
 # Anzma Tech — Building Data Ingestion Service
 
-## 1. Project Overview
+Simulated commercial-building telemetry and events, stored in SQLite and exposed through a local REST API.
 
-A Python-based data ingestion and retrieval service for a simulated commercial building environment.
+The sample covers HVAC, networking, access control, CCTV, and fire alarm. Records are synthetic. Nothing in this repository is live building data.
 
-The service handles two types of operational data:
+## Deliverables
 
-- **Telemetry:** Periodic measurements from building assets, such as temperatures, humidity, network bandwidth, packet loss, and CPU load.
-- **Events:** Discrete operational events, such as access-control activity, equipment alarms, network failures, camera status changes, and heartbeats.
-
-**Technology stack**
-
-| Component | Technology |
+| Request | Where it is |
 |---|---|
-| Programming language | Python 3.11 |
-| REST API | FastAPI |
-| Request validation | Pydantic |
-| Database | SQLite |
-| API documentation | OpenAPI / Swagger UI |
-| Data format | JSON / JSONL |
+| Ingestion service | `POST /api/v1/telemetry/batch`, `POST /api/v1/events/batch` |
+| Database and documented API | `data/anzma_building.db`, this file, Swagger at `/docs` |
+| At least 24 hours of records | 25-hour window, 1 Nov 2026 00:00:00Z through 2 Nov 2026 01:00:00Z exclusive |
+| Data-flow diagram | [DATA_FLOW.md](DATA_FLOW.md) |
+| Retrieval by asset, location, timestamp, and system type | `GET /api/v1/telemetry`, `GET /api/v1/events` |
 
-> All included records are synthetic sample data. They do not represent live production building telemetry.
+Generation and ingestion are separate. `generate_data.py` writes JSONL only. It does not insert into SQLite and it does not call the API.
 
-## 2. Architecture and Data Flow
+## Review the committed database
 
-The implementation follows this processing flow:
-
-1. Reference definitions describe buildings, locations, assets, system types, metric types, and event types.
-2. `generate_data.py` generates synthetic telemetry and operational event records.
-3. The generator saves the records as JSONL files and validates the persisted files.
-4. An HTTP client submits batches to the FastAPI ingestion endpoints.
-5. Pydantic validates request structure and field values.
-6. The API resolves asset and reference identifiers and validates relationships.
-7. SQLite transactions persist accepted records.
-8. Retrieval endpoints return records based on optional filters and pagination.
-
-See [DATA_FLOW.md](DATA_FLOW.md) for the implementation diagram.
-
-**Important distinction:** Data generation and database ingestion are separate operations. Running the generator does not automatically insert records into SQLite.
-
-## 3. Project Structure
-
-| File or directory | Purpose |
-|---|---|
-| `main.py` | FastAPI application, request models, ingestion and retrieval endpoints |
-| `db.py` | SQLite connection configuration and database paths |
-| `schema.sql` | Relational database schema, constraints, and indexes |
-| `init_db.py` | Database initialization |
-| `reference_data.py` | Building, location, asset, system, metric, and event definitions |
-| `seed_reference.py` | Validated reference-data seeding |
-| `generate_data.py` | Synthetic telemetry and event generation and verification |
-| `test_schema.py` | Database schema and integrity constraint tests |
-| `requirements.txt` | Pinned Python dependencies |
-| `.gitignore` | Excludes local environments, caches, secrets, logs, and database backups |
-| `DATA_FLOW.md` | Data-flow diagram |
-| `data/anzma_building.db` | Populated SQLite database snapshot |
-| `data/generated/telemetry.jsonl` | Generated telemetry records |
-| `data/generated/events.jsonl` | Generated event records |
-
-## 4. Environment Setup
-
-The project uses Python 3.11.
-
-### Clone the repository
-
-```powershell
-git clone https://github.com/Amr-69/task2-anzma-building-data-ingestion.git
-cd task2-anzma-building-data-ingestion
-```
-
-Access to this private repository must be granted through GitHub.
-
-### Create and activate a virtual environment
-
-```powershell
-py -3.11 -m venv .venv
-.\.venv\Scripts\Activate.ps1
-```
-
-### Install dependencies
-
-```powershell
-python -m pip install -r requirements.txt
-```
-
-The direct dependencies are pinned in `requirements.txt`:
-
-- FastAPI 0.162.0
-- Uvicorn 0.54.0
-- Pydantic 2.14.2
-
-## 5. Run the API
-
-The repository includes an initialized and populated SQLite database snapshot.
-
-From the project root, start the application:
+Start here for a live review. This procedure only reads the committed database. It does not load the sample again.
 
 ```powershell
 python -m uvicorn main:app --host 127.0.0.1 --port 8000
 ```
 
-The API will be available locally at:
-
 | Resource | URL |
 |---|---|
 | Swagger UI | http://127.0.0.1:8000/docs |
-| OpenAPI schema | http://127.0.0.1:8000/openapi.json |
+| OpenAPI | http://127.0.0.1:8000/openapi.json |
 
-Swagger UI provides interactive request schemas and endpoint documentation.
+Stop the server with `Ctrl+C`.
 
-Stop the server using `Ctrl+C`.
+The service always opens `data/anzma_building.db`. Do not run `python init_db.py --reset` against that file. `--reset` deletes it.
 
-**Database safety:** The existing database is already populated. Do not run `init_db.py --reset` against this database. The `--reset` option deletes the existing database file before recreating it.
+### What the first rows are
 
-## 6. Database Design
+Unfiltered telemetry is ordered by timestamp, so the first row is not the start of the sample. It is a manual test insert:
 
-The database contains six reference tables and two operational record tables.
+| Table | IDs | Asset | What | Timestamp |
+|---|---|---|---|---|
+| `telemetry_records` | 1, 2 | `HVAC-AHU-01` | `supply_air_temp` 15.2 and 15.3 | `2026-10-31T23:55:00Z`, `2026-10-31T23:57:00Z` |
+| `event_records` | 1, 2 | `CCTV-LOBBY` | `motion_detected`, details contain the word "test" | `2026-10-31T23:56:00Z`, `2026-10-31T23:57:00Z` |
 
-### Reference tables
+Those four rows are why the database counts are higher than the generator counts. They sit outside the sample window. Pass `start_time=2026-11-01T00:00:00Z` when the review should show only the generated sample.
 
-| Table | Purpose | Records |
-|---|---|---:|
-| `buildings` | Building definitions | 1 |
-| `locations` | Building locations | 10 |
-| `system_types` | Approved building system categories | 5 |
-| `assets` | Registered building assets | 29 |
-| `metric_types` | Telemetry measurement definitions | 7 |
-| `event_types` | Operational event definitions | 15 |
+### Counts
 
-### Operational tables
+| | Generated JSONL | Committed database |
+|---|---:|---:|
+| Telemetry | 7,500 | 7,502 |
+| Events | 210 | 212 |
 
-| Table | Purpose |
-|---|---|
-| `telemetry_records` | Timestamped asset measurements |
-| `event_records` | Timestamped operational events |
+Inside the sample window the database matches the JSONL exactly. `PRAGMA integrity_check` is `ok`. `PRAGMA foreign_key_check` returns no rows.
 
-The schema uses foreign keys to preserve relationships between operational records and their reference definitions.
+### Retrieval checks
 
-Natural-key uniqueness constraints prevent duplicate telemetry records for the same asset, metric, and timestamp, and duplicate events for the same asset, event type, and timestamp.
+Filters combine with AND. `start_time` is inclusive. `end_time` is exclusive. `limit` defaults to 100 and cannot exceed 1,000. Follow `next_offset` while `has_more` is true.
 
-SQLite foreign-key enforcement is enabled for application connections.
+IDs used below are the ids in the committed database:
 
-## 7. API Endpoint Reference
+| asset_id | asset_code | location_id | location | system |
+|---:|---|---:|---|---|
+| 1 | HVAC-AHU-01 | 10 | Roof Plant Room | HVAC |
+| 9 | NET-CORE-01 | 3 | IT Room | NETWORKING |
+| 13 | AC-RDR-LOBBY | 1 | Ground Lobby | ACCESS_CONTROL |
 
-The API exposes four main endpoints.
+```powershell
+# Combined filter. Expect returned = 600, all HVAC-AHU-01, all inside the window.
+Invoke-RestMethod "http://127.0.0.1:8000/api/v1/telemetry?asset_id=1&location_id=10&system_type=HVAC&start_time=2026-11-01T00:00:00Z&end_time=2026-11-02T01:00:00Z&limit=1000"
 
-| Method | Endpoint | Purpose |
-|---|---|---|
-| `POST` | `/api/v1/telemetry/batch` | Ingest a telemetry batch |
-| `POST` | `/api/v1/events/batch` | Ingest an event batch |
-| `GET` | `/api/v1/telemetry` | Retrieve telemetry records |
-| `GET` | `/api/v1/events` | Retrieve operational events |
+# One asset. Expect 900 rows for NET-CORE-01 (page with limit=1000).
+Invoke-RestMethod "http://127.0.0.1:8000/api/v1/telemetry?asset_id=9&limit=1000"
 
-### 7.1 Telemetry ingestion
+# Last five minutes of the window. Expect 25 rows, timestamp 2026-11-02T00:55:00Z.
+Invoke-RestMethod "http://127.0.0.1:8000/api/v1/telemetry?start_time=2026-11-02T00:55:00Z&end_time=2026-11-02T01:00:00Z&limit=1000"
 
-`POST /api/v1/telemetry/batch`
+# Exclusive end. Expect 25 rows, none at 00:55:00Z.
+Invoke-RestMethod "http://127.0.0.1:8000/api/v1/telemetry?start_time=2026-11-02T00:50:00Z&end_time=2026-11-02T00:55:00Z&limit=1000"
 
-Each submitted record contains:
+# Access control has events and no telemetry. Expect 25 events.
+Invoke-RestMethod "http://127.0.0.1:8000/api/v1/events?system_type=ACCESS_CONTROL&limit=100"
 
-| Field | Description |
-|---|---|
-| `asset_code` | Registered asset code |
-| `metric_name` | Existing metric definition |
-| `ts` | UTC timestamp in `YYYY-MM-DDTHH:MM:SSZ` format |
-| `value` | Finite numeric measurement |
+# CCTV, fire alarm: events only. HVAC and networking: both.
+Invoke-RestMethod "http://127.0.0.1:8000/api/v1/telemetry?system_type=CCTV&limit=10"
+```
 
-Telemetry validation includes asset existence, metric existence, and compatibility between the asset type and the submitted metric.
+`asset_id=1` together with `location_id=1` returns zero rows. The asset is not in that location. An unknown `system_type`, a `limit` above 1000, or a `start_time` that is not earlier than `end_time` returns HTTP 422.
 
-### 7.2 Event ingestion
+There is no `asset_code` query parameter. Ingestion uses codes. Retrieval uses numeric ids. The response body includes `asset_code`, `location_name`, and `system_type`.
 
-`POST /api/v1/events/batch`
+### Do not ingest the sample into this database
 
-Each submitted record contains:
+The generated rows are already stored. Posting them again hits the unique key and returns HTTP 409. The batch is rolled back. The counts stay 7,502 and 212. That 409 means the rows are already there. It does not mean the service failed.
 
-| Field | Description |
-|---|---|
-| `asset_code` | Registered asset code |
-| `event_type` | Existing event type |
-| `ts` | UTC timestamp in `YYYY-MM-DDTHH:MM:SSZ` format |
-| `severity` | `info`, `warning`, or `critical` |
-| `details` | Optional event details |
-
-### 7.3 Batch transaction behavior
-
-Both POST endpoints:
-
-- Require a non-empty `records` array.
-- Reject unexpected request fields.
-- Validate records before committing the batch.
-- Use SQLite transactions.
-- Roll back the entire batch if a record fails reference validation or violates database integrity constraints.
-
-A successful batch returns HTTP `201 Created`.
-
-The two ingestion endpoints use separate transactions. There is no single transaction spanning both telemetry and event batches.
-
-### 7.4 Retrieval filters
-
-Both GET endpoints support the following optional query parameters:
-
-| Parameter | Description |
-|---|---|
-| `asset_id` | Filter by asset ID |
-| `location_id` | Filter by location ID |
-| `system_type` | Filter by approved system code |
-| `start_time` | Inclusive UTC timestamp boundary |
-| `end_time` | Exclusive UTC timestamp boundary |
-| `limit` | Page size, minimum 1, maximum 1000; default 100 |
-| `offset` | Number of records to skip; default 0 |
-
-Filters can be combined.
-
-Retrieval responses include:
-
-- `returned`
-- `limit`
-- `offset`
-- `has_more`
-- `next_offset`
-- `items`
-
-Results are ordered by timestamp and record ID.
-
-## 8. Synthetic Sample Dataset
-
-The generated sample period is a fixed 25-hour UTC window.
+## Sample data
 
 | Property | Value |
 |---|---|
-| Start (inclusive) | `2026-11-01T00:00:00Z` |
-| End (exclusive) | `2026-11-02T01:00:00Z` |
+| Start, inclusive | `2026-11-01T00:00:00Z` |
+| End, exclusive | `2026-11-02T01:00:00Z` |
 | Telemetry interval | 5 minutes |
-| Telemetry series | 25 |
+| Series | 25 |
 | Samples per series | 300 |
-| Total telemetry records | 7,500 |
-| Total event records | 210 |
-| Hourly coverage | 25 of 25 hours |
+| Telemetry rows | 7,500 |
+| Event rows | 210 |
+| Random seed | 42 |
 
-The generator uses a fixed random seed to support reproducible sample generation.
+Hourly coverage is 25/25 hours for each system. HVAC and networking get that coverage from telemetry. Access control gets one event per hour. CCTV gets one heartbeat per camera per hour. Fire alarm gets one panel heartbeat per hour. This is enough to satisfy a 24-hour retrieval test. It is not a realistic occupant or alarm rate.
 
-It validates timestamp boundaries, metric value ranges, asset and metric references, event types, event severities, duplicate natural keys, telemetry intervals, hourly coverage, and the saved JSONL files.
+`forced_entry` is a defined event type. The sample never emits it. Fourteen of the fifteen event types appear at least once.
 
-The telemetry file contains 7,500 records and the event file contains 210 records.
-
-### Regenerate sample files
+Regenerate the files with:
 
 ```powershell
 python generate_data.py
 ```
 
-This regenerates and overwrites the JSONL sample files in `data/generated/`.
+That overwrites `data/generated/telemetry.jsonl` and `data/generated/events.jsonl`. It prints `SQLite database was not modified` when it succeeds.
 
-The generator does not modify the SQLite database or send records to the API.
+## API
 
-The generated JSONL files are not themselves batch API request bodies. An HTTP client must submit the records using the API's JSON batch request structure, with a `records` array.
+| Method | Path | Purpose |
+|---|---|---|
+| `POST` | `/api/v1/telemetry/batch` | Insert a telemetry batch |
+| `POST` | `/api/v1/events/batch` | Insert an event batch |
+| `GET` | `/api/v1/telemetry` | Read telemetry |
+| `GET` | `/api/v1/events` | Read events |
 
-## 9. Included Database Snapshot
+### Ingestion
 
-The committed SQLite database contains:
+Telemetry fields: `asset_code`, `metric_name`, `ts`, `value`.
 
-| Record type | Total database records |
-|---|---:|
-| Telemetry | 7,502 |
-| Events | 212 |
+Event fields: `asset_code`, `event_type`, `ts`, `severity` (`info`, `warning`, or `critical`), optional `details`.
 
-The totals include two pre-existing telemetry records and two pre-existing event records outside the generated sample window.
+`ts` must be `YYYY-MM-DDTHH:MM:SSZ`, real UTC, whole seconds. `value` must be a finite number. Booleans are rejected. Unknown JSON fields are rejected. `records` must be a non-empty array.
 
-The generated sample records were ingested through their respective REST batch endpoints.
+Both posts run in one SQLite transaction. One bad row rolls back the batch.
 
-The database snapshot can be queried immediately after starting the API. Reinitialization and reseeding are not required.
+| Failure | HTTP | Database |
+|---|---|---|
+| Malformed JSON or a field the schema rejects | 422 | unchanged |
+| Unknown asset, metric, or event type | 422 | unchanged |
+| Metric not allowed for that asset type | 422 | unchanged |
+| Duplicate natural key, including a duplicate inside the same batch | 409 | unchanged |
 
-## 10. Database Initialization for a New Environment
+A successful batch returns HTTP 201 and `inserted` equal to the number of rows submitted. Telemetry and events are separate transactions.
 
-The included database is already initialized and seeded. This section is only for creating a new, empty database.
+What is enforced:
 
-First ensure that the target database file does not already exist or that its existing contents have been safely backed up.
+- The asset code exists.
+- The metric or event type exists.
+- For telemetry, `reference_data.py` allows that metric on that asset type.
 
-Initialize the schema:
+What is not enforced:
+
+- Event type is not tied to the asset's system. An air handler can accept `forced_entry`.
+- Severity is not checked against the event type. `forced_entry` can be submitted as `info`.
+- The SQLite timestamp `CHECK` is weaker than the API. This SQLite build accepts `2026-02-31` and hour `24`. The API rejects both. `test_schema.py` does not cover those two values.
+
+### Retrieval parameters
+
+| Parameter | Rule |
+|---|---|
+| `asset_id` | Integer greater than 0 |
+| `location_id` | Integer greater than 0 |
+| `system_type` | `HVAC`, `NETWORKING`, `ACCESS_CONTROL`, `CCTV`, or `FIRE_ALARM` |
+| `start_time` | Inclusive UTC timestamp |
+| `end_time` | Exclusive UTC timestamp, must be later than `start_time` |
+| `limit` | 1 to 1000, default 100 |
+| `offset` | Default 0 |
+
+The response fields are `returned`, `limit`, `offset`, `has_more`, `next_offset`, and `items`. Rows are ordered by timestamp, then id. A filter that matches nothing returns HTTP 200 and an empty `items` list, not 404.
+
+## Load a fresh database
+
+Do this only on a copy. The steps below move the committed database aside and build a new one.
+
+Stop the API first.
 
 ```powershell
+Move-Item data\anzma_building.db data\anzma_building.snapshot.db
 python init_db.py
+python seed_reference.py
+python -m uvicorn main:app --host 127.0.0.1 --port 8000
 ```
 
-Seed the reference data:
+There is no loader script in the repository. The JSONL files are not themselves request bodies. Each request must be `{"records": [ ... ]}`. From a second shell, in the project root:
 
 ```powershell
-python seed_reference.py
+python -c @"
+import json
+from pathlib import Path
+from urllib.request import Request, urlopen
+
+def post(path, name):
+    records = [json.loads(line) for line in Path(name).read_text(encoding='utf-8').splitlines()]
+    req = Request(
+        'http://127.0.0.1:8000' + path,
+        data=json.dumps({'records': records}).encode(),
+        headers={'Content-Type': 'application/json'},
+        method='POST',
+    )
+    with urlopen(req) as resp:
+        print(path, resp.status, resp.read().decode())
+
+post('/api/v1/telemetry/batch', 'data/generated/telemetry.jsonl')
+post('/api/v1/events/batch', 'data/generated/events.jsonl')
+"@
 ```
 
-The initialization script refuses to replace an existing database unless `--reset` is explicitly supplied.
+A clean load inserts 7,500 telemetry rows and 210 events. Posting either file again returns 409 and does not add rows.
 
-**Warning:** `python init_db.py --reset` deletes the current database file. Do not use it against the included populated database unless its destruction is intentional and an appropriate backup exists.
+The loader example above is PowerShell. In `cmd.exe`, save the Python block as `load_sample.py` and run `python load_sample.py`. Do not commit that file. It is a review tool, not part of the service.
 
-Reference seeding refuses to proceed when protected tables already contain records and validates the relationships before committing.
+Restore the submitted snapshot before pushing or demonstrating retrieval again. Stop the server first.
 
-After initialization and seeding, records must still be submitted through the REST ingestion endpoints.
+```powershell
+Remove-Item data\anzma_building.db
+Move-Item data\anzma_building.snapshot.db data\anzma_building.db
+```
 
-## 11. Schema Verification
+`python init_db.py` refuses to replace a database that is already there. `--reset` deletes the file. Do not point `--reset` at the only copy of the snapshot.
 
-Run the database schema checks:
+`seed_reference.py` refuses to run when the reference tables already contain rows.
+
+## Schema
+
+Reference tables: `buildings` (1), `locations` (10), `system_types` (5), `assets` (29), `metric_types` (7), `event_types` (15).
+
+Fact tables: `telemetry_records`, `event_records`.
+
+Foreign keys link locations to the building, assets to a system type and a location, and fact rows to an asset plus a metric or event type. SQLite does not enable foreign keys by default. `db.py` sets `PRAGMA foreign_keys = ON` for application connections. A `sqlite3` shell will not enforce them unless the same pragma is set.
+
+Asset type is a string on `assets`, not its own table. Which metrics an asset type may emit is a Python rule in `reference_data.py`, applied by the API, not a foreign key.
 
 ```powershell
 python test_schema.py
 ```
 
-The test script creates an in-memory SQLite database. It checks valid inserts and rejection of invalid relationships, duplicate natural keys, malformed timestamps, invalid system types, and invalid event severities.
+The script builds an in-memory database, checks valid inserts, and checks that broken foreign keys, duplicate natural keys, illegal system codes, illegal severities, and several bad timestamps are rejected. It does not call the API and it does not modify `data/anzma_building.db`.
 
-These checks do not modify the committed database snapshot.
+## Project layout
 
-The script tests database constraints; it is not a substitute for the API retrieval integration tests.
-
-## 12. Verified Day 2 Results
-
-The following implementation results were verified for the Day 2 sample snapshot:
-
-| Verification | Result |
+| Path | Role |
 |---|---|
-| Telemetry batch ingestion | 7,500 accepted |
-| Event batch ingestion | 210 accepted |
-| Database telemetry count | 7,502 |
-| Database event count | 212 |
-| SQLite integrity check | `ok` |
-| Foreign-key violations | 0 |
-| Asset filtering | Verified |
-| Location filtering | Verified |
-| System-type filtering | Verified |
-| Timestamp filtering | Verified |
-| Combined filters | Verified |
-| Pagination and page-boundary behavior | Verified |
-| Inclusive start / exclusive end boundaries | Verified |
-| API/OpenAPI documentation | Available |
+| `main.py` | FastAPI application |
+| `db.py` | Connection and `PRAGMA foreign_keys` |
+| `schema.sql` | Tables, checks, indexes |
+| `init_db.py` | Create the database and the five system codes |
+| `reference_data.py` | Buildings, locations, assets, metrics, events |
+| `seed_reference.py` | Insert reference rows into an empty database |
+| `generate_data.py` | Write and check the JSONL sample |
+| `test_schema.py` | In-memory constraint checks |
+| `DATA_FLOW.md` | Flow from generator to API to SQLite |
+| `data/anzma_building.db` | Submitted snapshot |
+| `data/generated/*.jsonl` | Generated sample |
 
-Retrieval integration checks compared API results against independent read-only SQLite queries. Both telemetry and event retrieval were checked for individual filters, combined filters, pagination, and timestamp boundaries.
+## Setup
 
-## 13. Operational and Security Notes
+Python 3.10 or newer. The syntax uses `str | None`.
 
-- The current API has no authentication or authorization layer.
-- The documented startup command binds to `127.0.0.1`, restricting the demonstration server to the local machine.
-- Do not expose the service to an external network or production environment without appropriate authentication, authorization, transport security, and deployment controls.
-- The repository contains synthetic sample data, not live building telemetry.
-- Database initialization and sample generation are separate from REST ingestion.
+```powershell
+git clone https://github.com/Amr-69/task2-anzma-building-data-ingestion.git
+cd task2-anzma-building-data-ingestion
+py -3.11 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+```
 
-## 14. Project Deliverables
+Pinned direct dependencies: FastAPI 0.162.0, Uvicorn 0.54.0, Pydantic 2.14.2.
 
-- Working FastAPI ingestion and retrieval service.
-- Relational SQLite database with reference and operational tables.
-- Reproducible synthetic telemetry and event sample data.
-- Batch ingestion with transactional rollback behavior.
-- Filtered retrieval with pagination.
-- API documentation through OpenAPI and Swagger UI.
-- Data-flow diagram.
-- Database schema verification script.
-- Populated database snapshot and recorded Day 2 verification results.
+On a machine that already has the dependencies, the virtual environment is optional. The run command is still `python -m uvicorn main:app --host 127.0.0.1 --port 8000`.
+
+## Limits
+
+- No authentication or authorization. The documented command binds to `127.0.0.1`. Do not expose this process on a network.
+- No asset-code or location-name filter. Use the ids, or read the codes from the response.
+- No total row count in the page body. Use `has_more` and `next_offset`.
+- Access-control, CCTV, and fire-alarm assets do not emit telemetry.
+- Re-posting an existing natural key rejects the whole batch.
+- The four test rows listed above are part of the committed file on purpose, so the published counts stay stable. They are not part of the 25-hour sample.
+
+## Data flow
+
+```text
+reference_data.py
+    -> generate_data.py -> data/generated/*.jsonl
+    -> HTTP client (not shipped; see "Load a fresh database")
+    -> FastAPI validation
+    -> SQLite transaction
+    -> GET /api/v1/telemetry and GET /api/v1/events
+```
+
+The diagram with the same steps is in [DATA_FLOW.md](DATA_FLOW.md).
