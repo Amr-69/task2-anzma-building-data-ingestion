@@ -153,7 +153,7 @@ From the project root, activate the virtual environment and run:
 
 ```powershell
 python -m py_compile main.py dashboard/dashboard.py dashboard/dashboard_core.py
-python -m pytest -v
+python test_dashboard.py
 ```
 
 The automated test suite verifies:
