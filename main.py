@@ -775,3 +775,12 @@ def get_events(
         limit,
         offset,
     )
+
+
+# ============================================================
+# DAY 3: OPERATIONAL DASHBOARD (read-only)
+# ============================================================
+
+import dashboard.dashboard as dashboard  # noqa: E402
+
+dashboard.register(app)
