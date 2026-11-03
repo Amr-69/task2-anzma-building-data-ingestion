@@ -45,9 +45,9 @@ Other useful resources:
 
 | Resource | URL |
 |---|---|
-| Operational Dashboard | http://127.0.0.1:8000/dashboard |
-| Swagger UI | http://127.0.0.1:8000/docs |
-| OpenAPI specification | http://127.0.0.1:8000/openapi.json |
+| Operational Dashboard | [http://127.0.0.1:8000/dashboard](http://127.0.0.1:8000/dashboard) |
+| Swagger UI | [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs) |
+| OpenAPI specification | [http://127.0.0.1:8000/openapi.json](http://127.0.0.1:8000/openapi.json) |
 
 Stop the application using `Ctrl+C`.
 
@@ -80,7 +80,7 @@ The displayed trends respond to the selected filters.
 
 ## 5. Filters
 
-The dashboard supports the following filters:
+The dashboard supports the following filters.
 
 **System**
 
@@ -131,7 +131,7 @@ The dashboard uses two read-only endpoints:
 
 | Method | Endpoint | Purpose |
 |---|---|---|
-| GET | `/api/v1/dashboard/filters` | Returns available systems, buildings, and data time extent |
+| GET | `/api/v1/dashboard/filters` | Returns available systems, buildings, and data time range |
 | GET | `/api/v1/dashboard/overview` | Returns KPIs, trends, equipment health, and asset statuses |
 
 The overview endpoint supports:
@@ -149,21 +149,31 @@ The dashboard does not provide database write operations.
 
 ## 8. Run the Tests
 
-From the project root:
+From the project root, activate the virtual environment and run:
 
 ```powershell
-python -m py_compile dashboard\dashboard.py dashboard\dashboard_core.py main.py
+python -m py_compile main.py dashboard/dashboard.py dashboard/dashboard_core.py
 python -m pytest -v
 ```
 
-The automated test suite verifies KPI calculations, filtering, status rules, input validation, database read-only behavior, and KPI documentation consistency.
+The automated test suite verifies:
+
+- KPI calculations and data consistency.
+- System and building filter combinations.
+- Time-period filtering and timestamp validation.
+- Equipment status rules and health-summary consistency.
+- Database read-only behavior.
+- Heartbeat compliance calculations.
+- KPI documentation consistency.
+- Invalid request rejection.
 
 **Latest verified test result:**
 
 - 17 tests passed.
 - 38 subtests passed.
+- Python compilation passed.
 
-The dashboard was also manually checked in the browser, including filter changes, KPI updates, trend charts, and the asset-health display.
+The dashboard has also been manually checked in the browser, including filter changes, KPI updates, trend charts, and the asset-health display.
 
 ## 9. Project Files
 
@@ -178,13 +188,35 @@ The dashboard was also manually checked in the browser, including filter changes
 | `dashboard/static/charts.js` | SVG trend chart rendering |
 | `test_dashboard.py` | Automated dashboard tests |
 | `KPI_DEFINITIONS.md` | KPI definitions, calculation methods, status rules, and limitations |
+| `README_DAY3.md` | Day 3 implementation and verification documentation |
 
-The existing Day 2 ingestion service and its API routes remain in place.
+## 10. Implementation Scope
 
-## 10. Known Limitations
+**New files:**
+
+- Dashboard package and frontend files under `dashboard/`.
+- `test_dashboard.py`
+- `KPI_DEFINITIONS.md`
+- `README_DAY3.md`
+
+**Changed files:**
+
+- `main.py` — registers the dashboard routes with the existing FastAPI application.
+
+**Reused components:**
+
+- Day 2 SQLite database and schema.
+- Existing database modules and connection functionality.
+- Existing telemetry and event records.
+- Existing ingestion service and API functionality.
+
+The Day 3 dashboard extends the existing service rather than replacing the Day 2 ingestion implementation.
+
+## 11. Known Limitations
 
 - The dataset contains one building, so building comparisons are not possible with the current data.
-- The dataset is simulated and covers approximately 25 hours.
+- The generated dataset is simulated and covers approximately 25 hours.
+- Four additional manual test records dated October 31, 2026, are outside the generated sample window. These records are included in the database.
 - Heartbeat compliance uses the intersection of the selected period and the available dataset coverage. Coverage is inferred from the earliest and latest available timestamps; internal missing-hour gaps are not independently detected.
 - Access-control readers and smoke detectors do not have a dedicated liveness signal. Their status is derived from available events.
 - Recovery events such as `link_up` and `camera_online` are not netted against earlier fault events.

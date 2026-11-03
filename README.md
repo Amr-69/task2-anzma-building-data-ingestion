@@ -1,3 +1,16 @@
+# Day 3 — Operational Dashboard (this branch)
+
+Branch: `day3-dashboard`. Full Day 3 documentation: **[README_DAY3.md](README_DAY3.md)**.
+
+| Item | Detail |
+|---|---|
+| Dashboard | [http://127.0.0.1:8000/dashboard](http://127.0.0.1:8000/dashboard) |
+| KPI definitions | [KPI_DEFINITIONS.md](KPI_DEFINITIONS.md) |
+| Tests | `python test_dashboard.py` |
+
+```powershell
+python -m uvicorn main:app --host 127.0.0.1 --port 8000
+
 # Anzma Tech — Building Data Ingestion Service
 
 Simulated commercial-building telemetry and events, stored in SQLite and exposed through a local REST API.
@@ -263,6 +276,7 @@ Python 3.10 or newer. The syntax uses `str | None`.
 ```powershell
 git clone https://github.com/Amr-69/task2-anzma-building-data-ingestion.git
 cd task2-anzma-building-data-ingestion
+git checkout day3-dashboard
 py -3.11 -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install -r requirements.txt
