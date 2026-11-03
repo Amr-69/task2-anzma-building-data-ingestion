@@ -10,6 +10,9 @@ Branch: `day3-dashboard`. Full Day 3 documentation: **[README_DAY3.md](README_DA
 
 ```powershell
 python -m uvicorn main:app --host 127.0.0.1 --port 8000
+```
+
+---
 
 # Anzma Tech — Building Data Ingestion Service
 
