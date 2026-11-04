@@ -1,0 +1,161 @@
+{
+  "scenario": "S1",
+  "description": "AHU-02 cooling failure: supply air temperature rises well above normal",
+  "asset_code": "HVAC-AHU-02",
+  "metric": "supply_air_temp",
+  "window_start": "2026-11-01T10:00:00Z",
+  "window_end": "2026-11-01T12:00:00Z",
+  "rows_changed": 25,
+  "changed_rows": [
+    {
+      "telemetry_id": 3006,
+      "ts": "2026-11-01T10:00:00Z",
+      "original": 13.46,
+      "new": 15.19
+    },
+    {
+      "telemetry_id": 3031,
+      "ts": "2026-11-01T10:05:00Z",
+      "original": 13.78,
+      "new": 16.83
+    },
+    {
+      "telemetry_id": 3056,
+      "ts": "2026-11-01T10:10:00Z",
+      "original": 14.02,
+      "new": 18.67
+    },
+    {
+      "telemetry_id": 3081,
+      "ts": "2026-11-01T10:15:00Z",
+      "original": 14.07,
+      "new": 20.25
+    },
+    {
+      "telemetry_id": 3106,
+      "ts": "2026-11-01T10:20:00Z",
+      "original": 14.38,
+      "new": 22.07
+    },
+    {
+      "telemetry_id": 3131,
+      "ts": "2026-11-01T10:25:00Z",
+      "original": 14.73,
+      "new": 23.57
+    },
+    {
+      "telemetry_id": 3156,
+      "ts": "2026-11-01T10:30:00Z",
+      "original": 14.85,
+      "new": 23.66
+    },
+    {
+      "telemetry_id": 3181,
+      "ts": "2026-11-01T10:35:00Z",
+      "original": 14.69,
+      "new": 23.33
+    },
+    {
+      "telemetry_id": 3206,
+      "ts": "2026-11-01T10:40:00Z",
+      "original": 14.37,
+      "new": 23.47
+    },
+    {
+      "telemetry_id": 3231,
+      "ts": "2026-11-01T10:45:00Z",
+      "original": 14.55,
+      "new": 23.31
+    },
+    {
+      "telemetry_id": 3256,
+      "ts": "2026-11-01T10:50:00Z",
+      "original": 14.53,
+      "new": 23.39
+    },
+    {
+      "telemetry_id": 3281,
+      "ts": "2026-11-01T10:55:00Z",
+      "original": 14.64,
+      "new": 23.5
+    },
+    {
+      "telemetry_id": 3306,
+      "ts": "2026-11-01T11:00:00Z",
+      "original": 14.93,
+      "new": 23.31
+    },
+    {
+      "telemetry_id": 3331,
+      "ts": "2026-11-01T11:05:00Z",
+      "original": 14.7,
+      "new": 23.38
+    },
+    {
+      "telemetry_id": 3356,
+      "ts": "2026-11-01T11:10:00Z",
+      "original": 14.76,
+      "new": 23.56
+    },
+    {
+      "telemetry_id": 3381,
+      "ts": "2026-11-01T11:15:00Z",
+      "original": 14.86,
+      "new": 23.52
+    },
+    {
+      "telemetry_id": 3406,
+      "ts": "2026-11-01T11:20:00Z",
+      "original": 14.85,
+      "new": 23.39
+    },
+    {
+      "telemetry_id": 3431,
+      "ts": "2026-11-01T11:25:00Z",
+      "original": 14.57,
+      "new": 23.54
+    },
+    {
+      "telemetry_id": 3456,
+      "ts": "2026-11-01T11:30:00Z",
+      "original": 14.46,
+      "new": 23.62
+    },
+    {
+      "telemetry_id": 3481,
+      "ts": "2026-11-01T11:35:00Z",
+      "original": 14.34,
+      "new": 23.3
+    },
+    {
+      "telemetry_id": 3506,
+      "ts": "2026-11-01T11:40:00Z",
+      "original": 14.46,
+      "new": 23.62
+    },
+    {
+      "telemetry_id": 3531,
+      "ts": "2026-11-01T11:45:00Z",
+      "original": 14.71,
+      "new": 23.58
+    },
+    {
+      "telemetry_id": 3556,
+      "ts": "2026-11-01T11:50:00Z",
+      "original": 14.59,
+      "new": 23.44
+    },
+    {
+      "telemetry_id": 3581,
+      "ts": "2026-11-01T11:55:00Z",
+      "original": 14.73,
+      "new": 23.36
+    },
+    {
+      "telemetry_id": 3606,
+      "ts": "2026-11-01T12:00:00Z",
+      "original": 14.58,
+      "new": 23.68
+    }
+  ]
+}

@@ -1,0 +1,161 @@
+{
+  "scenario": "S4",
+  "description": "NET-CORE-01 sustained CPU overload",
+  "asset_code": "NET-CORE-01",
+  "metric": "cpu_load_pct",
+  "window_start": "2026-11-01T08:00:00Z",
+  "window_end": "2026-11-01T10:00:00Z",
+  "rows_changed": 25,
+  "changed_rows": [
+    {
+      "telemetry_id": 2420,
+      "ts": "2026-11-01T08:00:00Z",
+      "original": 77.19,
+      "new": 81.11
+    },
+    {
+      "telemetry_id": 2445,
+      "ts": "2026-11-01T08:05:00Z",
+      "original": 78.87,
+      "new": 84.78
+    },
+    {
+      "telemetry_id": 2470,
+      "ts": "2026-11-01T08:10:00Z",
+      "original": 80.58,
+      "new": 89.6
+    },
+    {
+      "telemetry_id": 2495,
+      "ts": "2026-11-01T08:15:00Z",
+      "original": 80.83,
+      "new": 91.33
+    },
+    {
+      "telemetry_id": 2520,
+      "ts": "2026-11-01T08:20:00Z",
+      "original": 77.85,
+      "new": 91.76
+    },
+    {
+      "telemetry_id": 2545,
+      "ts": "2026-11-01T08:25:00Z",
+      "original": 80.57,
+      "new": 92.98
+    },
+    {
+      "telemetry_id": 2570,
+      "ts": "2026-11-01T08:30:00Z",
+      "original": 82.48,
+      "new": 92.28
+    },
+    {
+      "telemetry_id": 2595,
+      "ts": "2026-11-01T08:35:00Z",
+      "original": 82.37,
+      "new": 92.11
+    },
+    {
+      "telemetry_id": 2620,
+      "ts": "2026-11-01T08:40:00Z",
+      "original": 82.77,
+      "new": 92.37
+    },
+    {
+      "telemetry_id": 2645,
+      "ts": "2026-11-01T08:45:00Z",
+      "original": 85.0,
+      "new": 92.69
+    },
+    {
+      "telemetry_id": 2670,
+      "ts": "2026-11-01T08:50:00Z",
+      "original": 84.15,
+      "new": 92.55
+    },
+    {
+      "telemetry_id": 2695,
+      "ts": "2026-11-01T08:55:00Z",
+      "original": 85.0,
+      "new": 91.46
+    },
+    {
+      "telemetry_id": 2720,
+      "ts": "2026-11-01T09:00:00Z",
+      "original": 84.4,
+      "new": 91.06
+    },
+    {
+      "telemetry_id": 2745,
+      "ts": "2026-11-01T09:05:00Z",
+      "original": 85.0,
+      "new": 91.63
+    },
+    {
+      "telemetry_id": 2770,
+      "ts": "2026-11-01T09:10:00Z",
+      "original": 85.0,
+      "new": 91.54
+    },
+    {
+      "telemetry_id": 2795,
+      "ts": "2026-11-01T09:15:00Z",
+      "original": 82.54,
+      "new": 91.42
+    },
+    {
+      "telemetry_id": 2820,
+      "ts": "2026-11-01T09:20:00Z",
+      "original": 82.75,
+      "new": 92.89
+    },
+    {
+      "telemetry_id": 2845,
+      "ts": "2026-11-01T09:25:00Z",
+      "original": 85.0,
+      "new": 92.75
+    },
+    {
+      "telemetry_id": 2870,
+      "ts": "2026-11-01T09:30:00Z",
+      "original": 82.48,
+      "new": 91.63
+    },
+    {
+      "telemetry_id": 2895,
+      "ts": "2026-11-01T09:35:00Z",
+      "original": 82.24,
+      "new": 92.31
+    },
+    {
+      "telemetry_id": 2920,
+      "ts": "2026-11-01T09:40:00Z",
+      "original": 83.84,
+      "new": 91.79
+    },
+    {
+      "telemetry_id": 2945,
+      "ts": "2026-11-01T09:45:00Z",
+      "original": 84.73,
+      "new": 92.83
+    },
+    {
+      "telemetry_id": 2970,
+      "ts": "2026-11-01T09:50:00Z",
+      "original": 82.79,
+      "new": 91.92
+    },
+    {
+      "telemetry_id": 2995,
+      "ts": "2026-11-01T09:55:00Z",
+      "original": 80.02,
+      "new": 91.53
+    },
+    {
+      "telemetry_id": 3020,
+      "ts": "2026-11-01T10:00:00Z",
+      "original": 79.33,
+      "new": 91.49
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "scenario": "S3",
+  "description": "NET-SW-2 short burst of packet loss",
+  "asset_code": "NET-SW-2",
+  "metric": "packet_loss_pct",
+  "window_start": "2026-11-01T18:00:00Z",
+  "window_end": "2026-11-01T18:20:00Z",
+  "rows_changed": 5,
+  "changed_rows": [
+    {
+      "telemetry_id": 5425,
+      "ts": "2026-11-01T18:00:00Z",
+      "original": 0.54,
+      "new": 3.95
+    },
+    {
+      "telemetry_id": 5450,
+      "ts": "2026-11-01T18:05:00Z",
+      "original": 0.59,
+      "new": 3.88
+    },
+    {
+      "telemetry_id": 5475,
+      "ts": "2026-11-01T18:10:00Z",
+      "original": 0.48,
+      "new": 3.91
+    },
+    {
+      "telemetry_id": 5500,
+      "ts": "2026-11-01T18:15:00Z",
+      "original": 0.41,
+      "new": 4.17
+    },
+    {
+      "telemetry_id": 5525,
+      "ts": "2026-11-01T18:20:00Z",
+      "original": 0.48,
+      "new": 4.06
+    }
+  ]
+}

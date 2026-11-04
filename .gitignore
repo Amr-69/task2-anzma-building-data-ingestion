@@ -28,3 +28,5 @@ data/anzma_building_pre_ingestion_*.db
 *.db-wal
 *.db-shm
 *.db-journal
+
+alerting/scenarios/generated/*.db

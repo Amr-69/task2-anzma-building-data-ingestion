@@ -1,0 +1,161 @@
+{
+  "scenario": "S2",
+  "description": "AHU-01 fan collapse: fan speed drops to near zero",
+  "asset_code": "HVAC-AHU-01",
+  "metric": "fan_speed_pct",
+  "window_start": "2026-11-01T14:00:00Z",
+  "window_end": "2026-11-01T16:00:00Z",
+  "rows_changed": 25,
+  "changed_rows": [
+    {
+      "telemetry_id": 4203,
+      "ts": "2026-11-01T14:00:00Z",
+      "original": 78.32,
+      "new": 7.84
+    },
+    {
+      "telemetry_id": 4228,
+      "ts": "2026-11-01T14:05:00Z",
+      "original": 74.83,
+      "new": 7.59
+    },
+    {
+      "telemetry_id": 4253,
+      "ts": "2026-11-01T14:10:00Z",
+      "original": 74.09,
+      "new": 7.6
+    },
+    {
+      "telemetry_id": 4278,
+      "ts": "2026-11-01T14:15:00Z",
+      "original": 74.43,
+      "new": 8.35
+    },
+    {
+      "telemetry_id": 4303,
+      "ts": "2026-11-01T14:20:00Z",
+      "original": 73.76,
+      "new": 8.1
+    },
+    {
+      "telemetry_id": 4328,
+      "ts": "2026-11-01T14:25:00Z",
+      "original": 71.41,
+      "new": 8.31
+    },
+    {
+      "telemetry_id": 4353,
+      "ts": "2026-11-01T14:30:00Z",
+      "original": 70.77,
+      "new": 8.23
+    },
+    {
+      "telemetry_id": 4378,
+      "ts": "2026-11-01T14:35:00Z",
+      "original": 74.01,
+      "new": 8.04
+    },
+    {
+      "telemetry_id": 4403,
+      "ts": "2026-11-01T14:40:00Z",
+      "original": 74.68,
+      "new": 8.47
+    },
+    {
+      "telemetry_id": 4428,
+      "ts": "2026-11-01T14:45:00Z",
+      "original": 76.25,
+      "new": 7.88
+    },
+    {
+      "telemetry_id": 4453,
+      "ts": "2026-11-01T14:50:00Z",
+      "original": 79.1,
+      "new": 8.05
+    },
+    {
+      "telemetry_id": 4478,
+      "ts": "2026-11-01T14:55:00Z",
+      "original": 81.23,
+      "new": 8.33
+    },
+    {
+      "telemetry_id": 4503,
+      "ts": "2026-11-01T15:00:00Z",
+      "original": 80.27,
+      "new": 8.12
+    },
+    {
+      "telemetry_id": 4528,
+      "ts": "2026-11-01T15:05:00Z",
+      "original": 76.32,
+      "new": 8.36
+    },
+    {
+      "telemetry_id": 4553,
+      "ts": "2026-11-01T15:10:00Z",
+      "original": 75.13,
+      "new": 8.08
+    },
+    {
+      "telemetry_id": 4578,
+      "ts": "2026-11-01T15:15:00Z",
+      "original": 77.16,
+      "new": 8.2
+    },
+    {
+      "telemetry_id": 4603,
+      "ts": "2026-11-01T15:20:00Z",
+      "original": 79.99,
+      "new": 7.55
+    },
+    {
+      "telemetry_id": 4628,
+      "ts": "2026-11-01T15:25:00Z",
+      "original": 83.61,
+      "new": 7.73
+    },
+    {
+      "telemetry_id": 4653,
+      "ts": "2026-11-01T15:30:00Z",
+      "original": 82.97,
+      "new": 7.79
+    },
+    {
+      "telemetry_id": 4678,
+      "ts": "2026-11-01T15:35:00Z",
+      "original": 84.95,
+      "new": 7.58
+    },
+    {
+      "telemetry_id": 4703,
+      "ts": "2026-11-01T15:40:00Z",
+      "original": 85.32,
+      "new": 7.73
+    },
+    {
+      "telemetry_id": 4728,
+      "ts": "2026-11-01T15:45:00Z",
+      "original": 86.14,
+      "new": 7.6
+    },
+    {
+      "telemetry_id": 4753,
+      "ts": "2026-11-01T15:50:00Z",
+      "original": 83.91,
+      "new": 7.78
+    },
+    {
+      "telemetry_id": 4778,
+      "ts": "2026-11-01T15:55:00Z",
+      "original": 81.66,
+      "new": 8.14
+    },
+    {
+      "telemetry_id": 4803,
+      "ts": "2026-11-01T16:00:00Z",
+      "original": 81.15,
+      "new": 7.86
+    }
+  ]
+}
