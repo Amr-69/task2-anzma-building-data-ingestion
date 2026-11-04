@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -6,188 +7,326 @@
   <title>Building Operations Dashboard</title>
   <style>
     :root {
-      --bg: #f5f6f8; --card: #ffffff; --text: #1b2430; --muted: #5b6676;
-      --line: #dde1e7; --accent: #1d4ed8;
-      --normal: #15803d; --warning: #b45309; --critical: #b91c1c; --no_data: #6b7280;
+      --bg:#f5f6f8; --card:#fff; --text:#1b2430; --muted:#5b6676;
+      --line:#dde1e7; --accent:#1d4ed8;
+      --normal:#15803d; --warning:#b45309; --critical:#b91c1c; --no_data:#6b7280;
     }
     @media (prefers-color-scheme: dark) {
       :root {
-        --bg: #11151b; --card: #1a2029; --text: #e7ebf1; --muted: #9aa6b6;
-        --line: #2c3544; --accent: #7aa2ff;
-        --normal: #4ade80; --warning: #fbbf24; --critical: #f87171; --no_data: #9ca3af;
+        --bg:#11151b; --card:#1a2029; --text:#e7ebf1; --muted:#9aa6b6;
+        --line:#2c3544; --accent:#7aa2ff;
+        --normal:#4ade80; --warning:#fbbf24; --critical:#f87171; --no_data:#9ca3af;
       }
     }
-    * { box-sizing: border-box; }
+    * { box-sizing:border-box; }
     body {
-      margin: 0; background: var(--bg); color: var(--text);
-      font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      margin:0; background:var(--bg); color:var(--text);
+      font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
     }
-    header, main { max-width: 1180px; margin: 0 auto; padding: 0 16px; }
-    header { padding-top: 20px; }
-    h1 { margin: 0 0 2px; font-size: 22px; }
-    h2 { margin: 28px 0 10px; font-size: 17px; }
-    h3 { margin: 0; font-size: 13px; font-weight: 600; color: var(--muted); }
-    .sub, .muted { color: var(--muted); font-size: 13px; }
-    #meta { margin: 6px 0 0; color: var(--muted); font-size: 13px; }
+    header, main { max-width:1180px; margin:0 auto; padding:0 16px; }
+    header { padding-top:20px; }
+    h1 { margin:0 0 2px; font-size:22px; }
+    h2 { margin:28px 0 10px; font-size:17px; }
+    h3 { margin:0; font-size:13px; font-weight:600; color:var(--muted); }
+    #meta { margin:6px 0 0; color:var(--muted); font-size:13px; }
+    .sub,.muted { color:var(--muted); font-size:13px; }
+
+    .page-nav {
+      display:flex; flex-wrap:wrap; gap:8px;
+      margin:18px 0 4px;
+      border-bottom:1px solid var(--line);
+      padding-bottom:10px;
+    }
+    .page-nav button {
+      background:var(--card); color:var(--text);
+      border:1px solid var(--line); padding:9px 15px;
+      border-radius:8px; font-weight:600;
+    }
+    .page-nav button[aria-selected="true"] {
+      background:var(--accent); color:#fff; border-color:var(--accent);
+    }
+    .page[hidden] { display:none; }
 
     .filters {
-      display: flex; flex-wrap: wrap; gap: 12px; align-items: end;
-      background: var(--card); border: 1px solid var(--line);
-      border-radius: 10px; padding: 12px 14px; margin-top: 14px;
+      display:flex; flex-wrap:wrap; gap:12px; align-items:end;
+      background:var(--card); border:1px solid var(--line);
+      border-radius:10px; padding:12px 14px; margin-top:14px;
     }
-    .filters label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--muted); }
-    select, input[type="datetime-local"], button {
-      font: inherit; color: var(--text); background: var(--bg);
-      border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px;
+    .filters label,.alert-toolbar label {
+      display:flex; flex-direction:column; gap:4px;
+      font-size:12px; color:var(--muted);
     }
-    button { cursor: pointer; background: var(--accent); color: #fff; border-color: var(--accent); }
-    button:disabled { opacity: .6; cursor: progress; }
-    #custom-range { display: flex; gap: 12px; }
-    #custom-range[hidden], #banner[hidden] { display: none; }
+    select,input[type="datetime-local"],button {
+      font:inherit; color:var(--text); background:var(--bg);
+      border:1px solid var(--line); border-radius:6px; padding:6px 8px;
+    }
+    button { cursor:pointer; background:var(--accent); color:#fff; border-color:var(--accent); }
+    button:disabled { opacity:.6; cursor:progress; }
+    #custom-range { display:flex; gap:12px; }
+    #custom-range[hidden],#banner[hidden] { display:none; }
 
     #banner {
-      margin-top: 12px; padding: 10px 12px; border-radius: 8px;
-      background: #fee2e2; color: #7f1d1d; border: 1px solid #fca5a5;
+      margin-top:12px; padding:10px 12px; border-radius:8px;
+      background:#fee2e2; color:#7f1d1d; border:1px solid #fca5a5;
     }
-
-    .grid-kpis { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
+    .grid-kpis {
+      display:grid; gap:12px;
+      grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+    }
     .card {
-      background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px;
+      background:var(--card); border:1px solid var(--line);
+      border-radius:10px; padding:12px 14px;
     }
-    .value { margin: 6px 0 2px; font-size: 30px; font-weight: 650; letter-spacing: -0.5px; }
-    .value.na { color: var(--muted); font-size: 24px; }
-    .unit { font-size: 14px; font-weight: 500; color: var(--muted); }
-    .detail { margin: 0; font-size: 12px; color: var(--muted); min-height: 1.2em; }
+    .value { margin:6px 0 2px; font-size:30px; font-weight:650; letter-spacing:-.5px; }
+    .value.na { color:var(--muted); font-size:24px; }
+    .unit { font-size:14px; font-weight:500; color:var(--muted); }
+    .detail { margin:0; font-size:12px; color:var(--muted); min-height:1.2em; }
 
     .panel {
-      background: var(--card); border: 1px solid var(--line); border-radius: 10px;
-      padding: 12px 14px; overflow-x: auto;
+      background:var(--card); border:1px solid var(--line);
+      border-radius:10px; padding:12px 14px; overflow-x:auto;
     }
-    table { border-collapse: collapse; width: 100%; font-size: 14px; }
-    th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--line); vertical-align: middle; }
-    thead th { font-size: 12px; color: var(--muted); font-weight: 600; }
-    tbody th { font-weight: 600; }
-    tr.total th, tr.total td { border-top: 2px solid var(--line); }
+    table { border-collapse:collapse; width:100%; font-size:14px; }
+    th,td {
+      text-align:left; padding:7px 8px;
+      border-bottom:1px solid var(--line); vertical-align:middle;
+    }
+    thead th { font-size:12px; color:var(--muted); font-weight:600; }
+    tbody th { font-weight:600; }
+    tr.total th,tr.total td { border-top:2px solid var(--line); }
 
-    .bar { display: flex; height: 12px; min-width: 120px; border-radius: 6px; overflow: hidden; background: var(--line); }
-    .seg.normal { background: var(--normal); }
-    .seg.warning { background: var(--warning); }
-    .seg.critical { background: var(--critical); }
-    .seg.no_data { background: var(--no_data); }
+    .bar {
+      display:flex; height:12px; min-width:120px;
+      border-radius:6px; overflow:hidden; background:var(--line);
+    }
+    .seg.normal { background:var(--normal); }
+    .seg.warning { background:var(--warning); }
+    .seg.critical { background:var(--critical); }
+    .seg.no_data { background:var(--no_data); }
 
-    .badge { font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 999px; border: 1px solid currentColor; white-space: nowrap; }
-    .badge.normal { color: var(--normal); }
-    .badge.warning { color: var(--warning); }
-    .badge.critical { color: var(--critical); }
-    .badge.no_data { color: var(--no_data); }
+    .badge {
+      font-size:12px; font-weight:600; padding:2px 8px;
+      border-radius:999px; border:1px solid currentColor; white-space:nowrap;
+    }
+    .badge.normal { color:var(--normal); }
+    .badge.warning { color:var(--warning); }
+    .badge.critical { color:var(--critical); }
+    .badge.no_data { color:var(--no_data); }
 
-    .charts { display: grid; gap: 12px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .charts .wide { grid-column: 1 / -1; }
-    @media (max-width: 760px) { .charts { grid-template-columns: minmax(0, 1fr); } }
-    .chart h3 { margin-bottom: 6px; }
-    .chart svg { width: 100%; height: auto; display: block; }
-    .ax { fill: var(--muted); font-size: 12px; }
-    td.nowrap { white-space: nowrap; font-size: 13px; }
-    .grid { stroke: var(--line); stroke-width: 1; }
-    .legend { display: flex; gap: 14px; font-size: 12px; color: var(--muted); margin-top: 4px; }
-    .swatch { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; }
+    .charts {
+      display:grid; gap:12px;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+    .charts .wide { grid-column:1/-1; }
+    @media (max-width:760px) {
+      .charts { grid-template-columns:minmax(0,1fr); }
+    }
+    .chart h3 { margin-bottom:6px; }
+    .chart svg { width:100%; height:auto; display:block; }
+    .ax { fill:var(--muted); font-size:12px; }
+    td.nowrap { white-space:nowrap; font-size:13px; }
+    .grid { stroke:var(--line); stroke-width:1; }
+    .legend {
+      display:flex; gap:14px; font-size:12px;
+      color:var(--muted); margin-top:4px;
+    }
+    .swatch {
+      display:inline-block; width:10px; height:10px;
+      border-radius:2px; margin-right:5px;
+    }
+    .asset-tools {
+      display:flex; justify-content:space-between;
+      align-items:center; margin-bottom:6px;
+    }
+    dl { margin:0; }
+    dt { font-weight:600; margin-top:10px; }
+    dd { margin:2px 0 0; color:var(--muted); font-size:14px; }
+    .src { font-size:12px; }
 
-    .asset-tools { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-    dl { margin: 0; }
-    dt { font-weight: 600; margin-top: 10px; }
-    dd { margin: 2px 0 0; color: var(--muted); font-size: 14px; }
-    .src { font-size: 12px; }
-    footer { max-width: 1180px; margin: 28px auto 40px; padding: 0 16px; color: var(--muted); font-size: 12px; }
+    /* AI Monitoring Center */
+    .monitor-intro {
+      margin:8px 0 16px; color:var(--muted); font-size:14px;
+    }
+    .alert-toolbar {
+      display:flex; flex-wrap:wrap; align-items:end; gap:12px;
+      margin-bottom:12px;
+    }
+    .alert-table tr.selected { background:var(--bg); }
+    .alert-table tbody tr[data-incident] { cursor:pointer; }
+    .alert-table tbody tr[data-incident]:hover { background:var(--bg); }
+    .alert-detail { margin-top:14px; }
+    .alert-detail h3 { margin:14px 0 6px; }
+    .alert-detail h3:first-child { margin-top:0; }
+    .alert-detail p { margin:5px 0; }
+    .alert-detail ul { margin:5px 0; padding-left:22px; }
+    .alert-detail .detail-grid {
+      display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px;
+    }
+    .alert-detail .detail-block {
+      border:1px solid var(--line); border-radius:8px;
+      padding:10px 12px; min-width:0;
+    }
+    .alert-status { margin:8px 0; color:var(--muted); font-size:13px; }
+    .alert-empty { color:var(--muted); padding:12px 0; }
+    .alert-table button { padding:4px 8px; font-size:12px; }
+    @media (max-width:760px) {
+      .alert-detail .detail-grid { grid-template-columns:minmax(0,1fr); }
+    }
+
+    footer {
+      max-width:1180px; margin:28px auto 40px;
+      padding:0 16px; color:var(--muted); font-size:12px;
+    }
   </style>
 </head>
 <body>
   <header>
     <h1>Building Operations Dashboard</h1>
     <div class="muted">Anzma Tech &middot; Commercial Building A &middot; synthetic data</div>
-    <p id="meta">Loading&hellip;</p>
 
-    <div class="filters">
-      <label>System
-        <select id="sel-system"><option value="">All systems</option></select>
-      </label>
-      <label>Building
-        <select id="sel-building"><option value="">All buildings</option></select>
-      </label>
-      <label>Time period (UTC)
-        <select id="sel-period">
-          <option value="full">Full data range</option>
-          <option value="1">Last 1 hour</option>
-          <option value="6">Last 6 hours</option>
-          <option value="12">Last 12 hours</option>
-          <option value="24">Last 24 hours</option>
-          <option value="custom">Custom range&hellip;</option>
-        </select>
-      </label>
-      <div id="custom-range" hidden>
-        <label>From (UTC)<input type="datetime-local" id="custom-start" step="1"></label>
-        <label>To, exclusive (UTC)<input type="datetime-local" id="custom-end" step="1"></label>
-      </div>
-      <button id="apply" type="button">Apply</button>
-    </div>
+    <nav class="page-nav" aria-label="Dashboard pages">
+      <button type="button" data-page="operations" aria-selected="true">
+        Operations Overview
+      </button>
+      <button type="button" data-page="monitoring" aria-selected="false">
+        AI Monitoring Center
+      </button>
+    </nav>
+
     <div id="banner" role="alert" hidden></div>
   </header>
 
   <main>
-    <h2>Key performance indicators</h2>
-    <section id="kpis" class="grid-kpis" aria-label="Key performance indicators"></section>
+    <!-- PAGE 1: DAY 3 OPERATIONS OVERVIEW -->
+    <section id="page-operations" class="page">
+      <p id="meta">Loading&hellip;</p>
 
-    <h2>Equipment health by system</h2>
-    <section class="panel">
-      <table>
-        <thead>
-          <tr>
-            <th>System</th><th>Assets</th><th>Status mix</th>
-            <th>Normal</th><th>Warning</th><th>Critical</th><th>No data</th><th>Healthy</th>
-          </tr>
-        </thead>
-        <tbody id="health-body"></tbody>
-      </table>
-    </section>
-
-    <h2>Trends (hourly, UTC)</h2>
-    <section class="charts">
-      <div class="panel chart wide">
-        <h3>Alerts per hour</h3>
-        <div id="chart-alerts"></div>
-        <div class="legend">
-          <span><span class="swatch" style="background:#b45309"></span>Warning</span>
-          <span><span class="swatch" style="background:#b91c1c"></span>Critical</span>
+      <div class="filters">
+        <label>System
+          <select id="sel-system"><option value="">All systems</option></select>
+        </label>
+        <label>Building
+          <select id="sel-building"><option value="">All buildings</option></select>
+        </label>
+        <label>Time period (UTC)
+          <select id="sel-period">
+            <option value="full">Full data range</option>
+            <option value="1">Last 1 hour</option>
+            <option value="6">Last 6 hours</option>
+            <option value="12">Last 12 hours</option>
+            <option value="24">Last 24 hours</option>
+            <option value="custom">Custom range&hellip;</option>
+          </select>
+        </label>
+        <div id="custom-range" hidden>
+          <label>From (UTC)<input type="datetime-local" id="custom-start" step="1"></label>
+          <label>To, exclusive (UTC)<input type="datetime-local" id="custom-end" step="1"></label>
         </div>
+        <button id="apply" type="button">Apply</button>
       </div>
-      <div class="panel chart">
-        <h3>Average zone temperature</h3>
-        <div id="chart-temp"></div>
-      </div>
-      <div class="panel chart">
-        <h3>Average network bandwidth</h3>
-        <div id="chart-bw"></div>
-      </div>
+
+      <h2>Key performance indicators</h2>
+      <section id="kpis" class="grid-kpis" aria-label="Key performance indicators"></section>
+
+      <h2>Equipment health by system</h2>
+      <section class="panel">
+        <table>
+          <thead>
+            <tr>
+              <th>System</th><th>Assets</th><th>Status mix</th>
+              <th>Normal</th><th>Warning</th><th>Critical</th><th>No data</th><th>Healthy</th>
+            </tr>
+          </thead>
+          <tbody id="health-body"></tbody>
+        </table>
+      </section>
+
+      <h2>Trends (hourly, UTC)</h2>
+      <section class="charts">
+        <div class="panel chart wide">
+          <h3>Alerts per hour</h3>
+          <div id="chart-alerts"></div>
+          <div class="legend">
+            <span><span class="swatch" style="background:#b45309"></span>Warning</span>
+            <span><span class="swatch" style="background:#b91c1c"></span>Critical</span>
+          </div>
+        </div>
+        <div class="panel chart">
+          <h3>Average zone temperature</h3>
+          <div id="chart-temp"></div>
+        </div>
+        <div class="panel chart">
+          <h3>Average network bandwidth</h3>
+          <div id="chart-bw"></div>
+        </div>
+      </section>
+
+      <h2>Operational status by asset</h2>
+      <section class="panel">
+        <div class="asset-tools">
+          <span class="sub">Most severe first. Alerts column shows warnings / criticals in the period.</span>
+          <label class="sub"><input type="checkbox" id="only-issues"> Show only assets with issues</label>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Asset</th><th>System</th><th>Location</th><th>Status</th>
+              <th>Alerts (W / C)</th><th>Last seen (UTC)</th><th>Why</th>
+            </tr>
+          </thead>
+          <tbody id="assets-body"></tbody>
+        </table>
+      </section>
+
+      <h2>KPI definitions</h2>
+      <section class="panel"><dl id="definitions"></dl></section>
     </section>
 
-    <h2>Operational status by asset</h2>
-    <section class="panel">
-      <div class="asset-tools">
-        <span class="sub">Most severe first. Alerts column shows warnings / criticals in the period.</span>
-        <label class="sub"><input type="checkbox" id="only-issues"> Show only assets with issues</label>
-      </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Asset</th><th>System</th><th>Location</th><th>Status</th>
-            <th>Alerts (W / C)</th><th>Last seen (UTC)</th><th>Why</th>
-          </tr>
-        </thead>
-        <tbody id="assets-body"></tbody>
-      </table>
-    </section>
+    <!-- PAGE 2: DAY 4 AI MONITORING CENTER -->
+    <section id="page-monitoring" class="page" hidden>
+      <h2>AI Monitoring Center</h2>
+      <p class="monitor-intro">
+        Review detected incidents, inspect their telemetry evidence, understand
+        possible causes, and examine recommended corrective actions.
+      </p>
 
-    <h2>KPI definitions</h2>
-    <section class="panel"><dl id="definitions"></dl></section>
+      <section class="panel">
+        <div class="alert-toolbar">
+          <label>Fault scenario
+            <select id="alert-scenario">
+              <option value="baseline">Baseline</option>
+              <option value="S1">S1 - Cooling failure</option>
+              <option value="S2">S2 - Fan collapse</option>
+              <option value="S3">S3 - Packet loss</option>
+              <option value="S4">S4 - CPU overload</option>
+              <option value="S5">S5 - Bandwidth collapse</option>
+            </select>
+          </label>
+          <button id="alert-refresh" type="button">Load incidents</button>
+        </div>
+
+        <p id="alert-scenario-description" class="sub"></p>
+        <p id="alert-status" class="alert-status" aria-live="polite">
+          Select a scenario to load its incidents.
+        </p>
+
+        <div class="panel">
+          <table class="alert-table">
+            <thead>
+              <tr>
+                <th>Asset</th><th>Metric</th><th>Severity</th><th>Status</th>
+                <th>Start (UTC)</th><th>Peak value</th><th>Readings</th><th>Details</th>
+              </tr>
+            </thead>
+            <tbody id="alert-incidents-body">
+              <tr><td colspan="8" class="alert-empty">Load a scenario to see incidents.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div id="alert-detail" class="alert-detail" hidden></div>
+      </section>
+    </section>
   </main>
 
   <footer>
