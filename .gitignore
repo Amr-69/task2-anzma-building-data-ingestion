@@ -30,3 +30,6 @@ data/anzma_building_pre_ingestion_*.db
 *.db-journal
 
 alerting/scenarios/generated/*.db
+
+# Local VS Code settings
+.vscode/
