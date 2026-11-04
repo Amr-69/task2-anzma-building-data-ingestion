@@ -1,4 +1,3 @@
-
 /* Dashboard page logic. Talks only to /api/v1/dashboard/*. */
 (function () {
   "use strict";
@@ -8,10 +7,10 @@
   var API = "/api/v1/dashboard";
 
   var STATUS = {
-    critical: { label: "Critical", icon: "■", rank: 0 },
-    no_data:  { label: "No data",  icon: "○", rank: 1 },
-    warning:  { label: "Warning",  icon: "▲", rank: 2 },
-    normal:   { label: "Normal",   icon: "●", rank: 3 }
+    critical: { label: "Critical", icon: "\u25A0", rank: 0 },
+    no_data:  { label: "No data",  icon: "\u25CB", rank: 1 },
+    warning:  { label: "Warning",  icon: "\u25B2", rank: 2 },
+    normal:   { label: "Normal",   icon: "\u25CF", rank: 3 }
   };
 
   var SYSTEM_LABELS = {
@@ -20,6 +19,13 @@
     ACCESS_CONTROL: "Access control",
     CCTV: "CCTV",
     FIRE_ALARM: "Fire alarm"
+  };
+
+  var REASON_LABELS = {
+    threshold_warning: "Warning threshold",
+    threshold_critical: "Critical threshold",
+    zscore_anomaly: "Statistical anomaly (z-score)",
+    zscore_escalation: "Escalated by z-score"
   };
 
   var options = null;
@@ -78,13 +84,25 @@
            s.icon + "</span> " + s.label + "</span>";
   }
 
+  function reasonsText(reasons, escalatedBy) {
+    var out = (reasons || []).map(function (reason) {
+      return REASON_LABELS[reason] || reason;
+    });
+
+    if (escalatedBy === "sustained") {
+      out.push("Sustained warning readings");
+    }
+
+    return out.length ? out.join(", ") : "\u2014";
+  }
+
   function formatValue(kpi) {
     if (!kpi.applicable || kpi.value === null || kpi.value === undefined) return "N/A";
     return String(kpi.value);
   }
 
   function unitLabel(unit) {
-    return unit === "C" ? "°C" : unit;
+    return unit === "C" ? "\u00B0C" : unit;
   }
 
   // ---------- Day 3 period filters ----------
@@ -131,8 +149,8 @@
     var p = data.period;
 
     $("meta").textContent =
-      "Period (UTC): " + p.start + " to " + p.end_exclusive + " (end exclusive) · " +
-      p.hours + " h · " + p.telemetry_records.toLocaleString() + " telemetry readings · " +
+      "Period (UTC): " + p.start + " to " + p.end_exclusive + " (end exclusive) \u00B7 " +
+      p.hours + " h \u00B7 " + p.telemetry_records.toLocaleString() + " telemetry readings \u00B7 " +
       p.event_records.toLocaleString() + " events";
   }
 
@@ -210,7 +228,7 @@
         "<td>" + esc(a.location_name) + "</td>" +
         "<td>" + badge(a.status) + "</td>" +
         "<td>" + a.warnings + " / " + a.criticals + "</td>" +
-        '<td class="nowrap">' + esc(a.last_seen || "—") + "</td>" +
+        '<td class="nowrap">' + esc(a.last_seen || "\u2014") + "</td>" +
         '<td class="sub">' + esc(a.status_reason) + "</td></tr>"
       );
     }).join("") : '<tr><td colspan="7" class="sub">No assets to show.</td></tr>';
@@ -232,7 +250,7 @@
       labels: t.hours,
       width: 560,
       values: t.zone_temp.values,
-      unit: "°C",
+      unit: "\u00B0C",
       color: "#1d4ed8",
       ariaLabel: "Average zone temperature per hour",
       emptyMessage: t.zone_temp.applicable
@@ -318,7 +336,7 @@
 
     if (!currentIncidents.length) {
       $("alert-incidents-body").innerHTML =
-        '<tr><td colspan="8" class="alert-empty">No incidents detected in this scenario.</td></tr>';
+        '<tr><td colspan="9" class="alert-empty">No incidents detected in this scenario.</td></tr>';
 
       alertStatus("No incidents found. This is expected for the baseline dataset.");
       return;
@@ -334,6 +352,7 @@
         '<td class="nowrap">' + esc(incident.start_ts) + "</td>" +
         "<td>" + esc(String(incident.peak_value)) + "</td>" +
         "<td>" + incident.readings_count + "</td>" +
+        "<td>" + esc(reasonsText(incident.detection_reasons)) + "</td>" +
         '<td><button type="button" data-detail="' + incident.incident_index + '">View</button></td>' +
         "</tr>"
       );
@@ -358,6 +377,7 @@
     var asset = ev.asset;
     var normal = ev.normal_before;
     var thresholds = ev.thresholds;
+    var actionReasons = explanation.action_reasons || {};
 
     var readingsById = {};
     (ev.key_readings || []).forEach(function (reading) {
@@ -391,10 +411,13 @@
       explanation.recommended_action_ids,
       function (id) {
         var text = actionsById[id];
+        var why = actionReasons[id];
 
         return (
           "<li><strong>" + esc(id) + "</strong>: " +
-          esc(text || "Action description unavailable.") + "</li>"
+          esc(text || "Action description unavailable.") +
+          (why ? '<br><span class="muted">Why: ' + esc(why) + "</span>" : "") +
+          "</li>"
         );
       }
     );
@@ -408,7 +431,7 @@
       ev.related_events,
       function (event) {
         return (
-          "<li><strong>" + esc(event.type) + "</strong> — " +
+          "<li><strong>" + esc(event.type) + "</strong> \u2014 " +
           esc(event.severity) + " at " + esc(event.ts) +
           (event.details ? ": " + esc(event.details) : "") +
           " (event ID " + esc(String(event.event_id)) + ")</li>"
@@ -425,9 +448,22 @@
       )
       : '<p class="muted">No preceding baseline readings available.</p>';
 
-    var sourceLabel = result.source === "llm"
-      ? "LLM-generated possible causes"
-      : "Template fallback — AI explanation unavailable";
+    var isLive = result.source === "llm";
+    var validationErrors = result.validation_errors || [];
+    var validationCount = validationErrors.length;
+
+    var badgeClass = isLive ? "ai-badge live" : "ai-badge fallback";
+    var badgeText = isLive
+      ? "LIVE AI \u2014 " + (result.model || "local model")
+      : "SAFE FALLBACK \u2014 TEMPLATE";
+
+    var aiMeta =
+      "Possible causes: " +
+      (isLive ? "generated live by the local AI model" : "safe template fallback") +
+      " \u00B7 Evidence-checked: " +
+      (validationCount === 0 ? "passed" : validationCount + " issue(s)") +
+      " \u00B7 Generation time: " +
+      (result.seconds === null || result.seconds === undefined ? "n/a" : result.seconds + "s");
 
     var detail = $("alert-detail");
 
@@ -435,21 +471,22 @@
       '<div class="detail-grid">' +
         '<div class="detail-block">' +
           "<h3>Incident</h3>" +
-          "<p><strong>" + esc(asset.code) + " — " + esc(asset.name) + "</strong></p>" +
+          "<p><strong>" + esc(asset.code) + " \u2014 " + esc(asset.name) + "</strong></p>" +
           "<p>Metric: " + esc(ev.metric) + " (" + esc(ev.unit) + ")</p>" +
           "<p>Location: " + esc(asset.location) + ", floor " + esc(String(asset.floor)) + "</p>" +
           "<p>System: " + esc(asset.system) + "</p>" +
           "<p>Severity: " + badge(ev.severity) + "</p>" +
           "<p>Status: " + esc(ev.status) + "</p>" +
+          "<p>Detected by: " + esc(reasonsText(ev.detection_reasons, ev.escalated_by)) + "</p>"+
           "<p>Readings: " + esc(String(ev.readings_in_incident)) +
-          " · Duration: " + esc(String(ev.duration_minutes)) + " minutes</p>" +
+          " \u00B7 Duration: " + esc(String(ev.duration_minutes)) + " minutes</p>" +
         "</div>" +
 
         '<div class="detail-block">' +
+          '<span class="' + badgeClass + '">' + esc(badgeText) + "</span>" +
           "<h3>Explanation</h3>" +
           "<p>" + esc(explanation.summary) + "</p>" +
-          '<p class="muted">' + esc(sourceLabel) +
-          (result.model ? " · " + esc(result.model) : "") + "</p>" +
+          '<p class="ai-meta">' + esc(aiMeta) + "</p>" +
           "<h3>Severity justification</h3>" +
           "<p>" + esc(ev.severity_explanation) + "</p>" +
         "</div>" +
@@ -469,7 +506,9 @@
       "</div>" +
 
       "<h3>Evidence readings</h3>" + citations +
-      "<h3>Possible causes</h3>" + causes +
+      "<h3>AI-generated possible causes</h3>" +
+      '<p class="muted">Hypotheses generated from the supplied evidence. They are not confirmed root causes.</p>' +
+      causes +
       "<h3>Recommended corrective actions</h3>" + actions +
       "<h3>Evidence limitations</h3>" +
       "<p>" + esc(explanation.evidence_limits) + "</p>" +
@@ -480,7 +519,7 @@
 
   function loadIncidentDetail(index) {
     selectedIncident = index;
-    alertStatus("Loading incident evidence and generating explanation…");
+    alertStatus("Loading incident evidence and generating explanation\u2026");
 
     var scenario = encodeURIComponent(currentScenario);
     var url = API + "/alerts/" + encodeURIComponent(index) + "?scenario=" + scenario;
@@ -501,7 +540,7 @@
         renderIncidentDetail(result);
         alertStatus(
           "Incident details loaded. Explanation source: " +
-          (result.source === "llm" ? "Ollama" : "template fallback") +
+          (result.source === "llm" ? "live Ollama AI" : "template fallback") +
           ". Generation time: " + result.seconds + " seconds."
         );
       })
@@ -528,9 +567,9 @@
 
     $("alert-refresh").disabled = true;
     $("alert-incidents-body").innerHTML =
-      '<tr><td colspan="8" class="alert-empty">Loading incidents…</td></tr>';
+      '<tr><td colspan="9" class="alert-empty">Loading incidents\u2026</td></tr>';
 
-    alertStatus("Analyzing scenario…");
+    alertStatus("Analyzing scenario\u2026");
 
     return fetchJson(API + "/alerts?scenario=" + encodeURIComponent(scenario))
       .then(function (data) {
@@ -538,7 +577,7 @@
       })
       .catch(function (err) {
         $("alert-incidents-body").innerHTML =
-          '<tr><td colspan="8" class="alert-empty">Unable to load incidents.</td></tr>';
+          '<tr><td colspan="9" class="alert-empty">Unable to load incidents.</td></tr>';
 
         $("alert-scenario-description").textContent = "";
         alertStatus("Alert loading failed: " + err.message);

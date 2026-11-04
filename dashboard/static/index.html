@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -169,6 +168,34 @@
     .alert-status { margin:8px 0; color:var(--muted); font-size:13px; }
     .alert-empty { color:var(--muted); padding:12px 0; }
     .alert-table button { padding:4px 8px; font-size:12px; }
+
+    .ai-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .ai-badge.live {
+      background: #e6f6ec;
+      color: #176b3a;
+      border: 1px solid #9fd8b4;
+    }
+
+    .ai-badge.fallback {
+      background: #fff4e5;
+      color: #8a5200;
+      border: 1px solid #f0c48a;
+    }
+
+    .ai-meta {
+      font-size: 12px;
+      color: var(--muted);
+      margin: 4px 0 10px;
+    }
+
     @media (max-width:760px) {
       .alert-detail .detail-grid { grid-template-columns:minmax(0,1fr); }
     }
@@ -315,11 +342,12 @@
             <thead>
               <tr>
                 <th>Asset</th><th>Metric</th><th>Severity</th><th>Status</th>
-                <th>Start (UTC)</th><th>Peak value</th><th>Readings</th><th>Details</th>
+                <th>Start (UTC)</th><th>Peak value</th><th>Readings</th>
+                <th>Why detected</th><th>Details</th>
               </tr>
             </thead>
             <tbody id="alert-incidents-body">
-              <tr><td colspan="8" class="alert-empty">Load a scenario to see incidents.</td></tr>
+              <tr><td colspan="9" class="alert-empty">Load a scenario to see incidents.</td></tr>
             </tbody>
           </table>
         </div>

@@ -41,3 +41,103 @@ ACTIONS = {
 
 def candidate_actions(metric):
     return [{"id": i, "text": t} for i, t in ACTIONS[metric]]
+
+
+def _extreme_reading(ev):
+    """Key reading furthest toward the failure side of the metric."""
+
+    high = ev["thresholds"]["direction"] == "high"
+    pick = max if high else min
+
+    return pick(ev["key_readings"], key=lambda reading: reading["value"])
+
+
+def _crossed_critical(ev, value):
+    """True when the value passed the configured critical threshold."""
+
+    thresholds = ev["thresholds"]
+
+    if thresholds["direction"] == "high":
+        return value > thresholds["critical"]
+
+    return value < thresholds["critical"]
+
+
+def select_actions(ev, count=2):
+    """Choose corrective actions from the incident evidence (no LLM).
+
+    Each metric has a catalog of candidate actions. A simple rule uses the
+    measured readings to decide which catalog entry is checked first; the
+    remaining entries follow in catalog order.
+
+    Returns (action_ids, reasons). reasons maps each chosen action ID to a
+    sentence that cites the reading or measurement the choice was based on.
+    """
+
+    ids = [action["id"] for action in ev["candidate_actions"]]
+    metric = ev["metric"]
+    unit = ev["unit"]
+    critical = ev["thresholds"]["critical"]
+    reading = _extreme_reading(ev)
+    crossed = _crossed_critical(ev, reading["value"])
+    duration = ev["duration_minutes"]
+    sustained = ev.get("escalated_by") == "sustained"
+    detection = set(ev["detection_reasons"])
+    cite = f'reading {reading["telemetry_id"]} = {reading["value"]} {unit}'
+
+    first = ids[0]
+    why = "Standard first check for this metric."
+
+    if metric == "fan_speed_pct" and crossed:
+        first = "FAN-3"
+        why = (
+            f"{cite} is below the critical limit {critical} {unit}; "
+            "a near-stopped fan points first to a power or breaker problem."
+        )
+    elif metric == "packet_loss_pct" and duration <= 30:
+        first = "PL-3"
+        why = (
+            f"The incident lasted {duration} minutes ({cite}); "
+            "a short burst points first to uplink congestion."
+        )
+    elif metric == "bandwidth_mbps" and crossed:
+        first = "BW-2"
+        why = (
+            f"{cite} is below the critical limit {critical} {unit}; "
+            "a collapse this deep points first to the upstream device or link."
+        )
+    elif metric == "cpu_load_pct" and sustained:
+        first = "CPU-3"
+        why = (
+            "CPU load stayed at warning level for at least "
+            f'{ev["sustained_readings_required"]} readings '
+            f"(peak {cite}); persistent load calls for planning "
+            "load shifting or failover first."
+        )
+    elif metric == "supply_air_temp" and not crossed:
+        first = "SAT-3"
+        why = (
+            f"{cite} did not reach the critical limit {critical} {unit}; "
+            "a moderate rise points first to airflow or filter restriction."
+        )
+    elif metric == "zone_humidity_pct" and detection == {"zscore_anomaly"}:
+        first = "ZH-1"
+        why = (
+            "Only the statistical check fired, so confirm the sensor "
+            "against a reference before checking the air handler."
+        )
+    elif crossed:
+        why = (
+            f"{cite} crossed the critical limit {critical} {unit}, "
+            "so the primary check for this metric comes first."
+        )
+
+    order = [first] + [action_id for action_id in ids if action_id != first]
+    chosen = order[:count]
+
+    reasons = {chosen[0]: why}
+
+    for action_id in chosen[1:]:
+        reasons[action_id] = "Next standard check for this metric."
+
+    return chosen, reasons

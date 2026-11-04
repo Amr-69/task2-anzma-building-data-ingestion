@@ -1,5 +1,4 @@
-﻿
-"""Build an evidence packet for one incident from the database (read-only)."""
+﻿"""Build an evidence packet for one incident from the database (read-only)."""
 
 import sqlite3
 import statistics
@@ -94,21 +93,36 @@ def _fetch(db_path, inc):
 
 
 def _severity_explanation(inc):
-    """Generate a factual severity explanation from detection results."""
+    """Generate a factual severity explanation from detection results.
+
+    The wording follows the recorded detection reasons, so it never claims a
+    threshold was crossed when the severity came from another rule.
+    """
 
     severity = inc["severity"]
     escalated_by = inc.get("escalated_by")
     points = inc["points"]
+    reasons = {reason for point in points for reason in point["reasons"]}
+    critical_limit = config.THRESHOLDS[inc["metric"]]["critical"]
 
-    critical_points = [
-        point for point in points
-        if point.get("level") == "critical"
-    ]
+    if "threshold_critical" in reasons:
+        text = (
+            "Critical severity was assigned because at least one reading "
+            f"crossed the configured critical threshold ({critical_limit})."
+        )
+        if "zscore_anomaly" in reasons or "zscore_escalation" in reasons:
+            text += (
+                " The robust z-score also flagged the readings as "
+                "statistically abnormal."
+            )
+        return text
 
-    if critical_points:
+    if "zscore_escalation" in reasons:
         return (
-            "Critical severity was assigned because at least one "
-            "reading met a Critical-level detection condition."
+            "Critical severity was assigned because the robust z-score "
+            "reached the escalation rule while the readings were only at "
+            "warning level. The configured critical threshold "
+            f"({critical_limit}) was not crossed."
         )
 
     if severity == "critical" and escalated_by == "sustained":
