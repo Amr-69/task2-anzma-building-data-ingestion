@@ -264,6 +264,40 @@ This is the main endpoint used by the dashboard chat interface.
 
 ---
 
+## Test Results
+
+The Task 5 assistant tests are located in:
+
+```text
+tests/test_assistant_day5.py
+```
+
+Run them with:
+
+```powershell
+pytest tests\test_assistant_day5.py -v
+```
+
+Current result:
+
+```text
+tests/test_assistant_day5.py::test_chat_rejects_invalid_scenario PASSED
+tests/test_assistant_day5.py::test_chat_rejects_invalid_time_window PASSED
+tests/test_assistant_day5.py::test_chat_accepts_conversation_history PASSED
+tests/test_assistant_day5.py::test_scenarios_endpoint_returns_required_scenarios PASSED
+
+4 passed
+```
+
+The tests verify that:
+
+- Unsafe or invalid scenario IDs are rejected.
+- Invalid time windows are rejected.
+- Conversation history is accepted by the assistant endpoint.
+- All mandatory scenarios are available: `baseline`, `S1`, `S2`, `S3`, `S4`, and `S5`.
+
+---
+
 ## Project Files and Their Jobs
 
 ### `main.py`
@@ -496,6 +530,53 @@ Contains the visual styling for the dashboard and chat interface.
 
 ---
 
+### `tests/test_assistant_day5.py`
+
+Contains automated tests for the Task 5 assistant.
+
+It tests:
+
+- Rejection of unsafe scenario IDs
+- Rejection of invalid time windows
+- Acceptance of conversation history
+- Availability of all mandatory scenarios
+
+---
+
+### `DEMO_SCRIPT.md`
+
+Contains the five-minute live product demonstration script and checklist.
+
+It explains how to demonstrate:
+
+- The dashboard
+- The AI Assistant
+- Natural-language questions
+- Conversation memory
+- Scenario analysis
+- Custom scenarios
+- Error handling
+
+---
+
+### `TECHNICAL_NOTES.md`
+
+Contains the five-minute technical explanation.
+
+It explains:
+
+- The assistant architecture
+- Request flow
+- Conversation memory
+- AI model support
+- Scenario validation
+- Read-only database access
+- Internal tools
+- Error handling
+- Implemented files
+
+---
+
 ### `alerting/scenarios/generated/`
 
 Contains the generated scenario databases.
@@ -541,18 +622,6 @@ git status
 ### Add changed files
 
 ```powershell
-git add assistant/schemas.py
-git add assistant/llm.py
-git add assistant/router.py
-git add dashboard/static/assistant_chat.js
-git add dashboard/static/index.html
-git add dashboard/dashboard.py
-git add README.md
-```
-
-Or add all changes:
-
-```powershell
 git add .
 ```
 
@@ -590,6 +659,40 @@ The assistant follows these rules:
 
 ---
 
+## Reflection: Improvements Required Before Production Deployment
+
+Before deploying this assistant in a real production environment, several
+improvements would be required.
+
+First, authentication and authorization must be added. Currently, the assistant
+is intended for an individual demonstration environment. In production, users
+should log in, and their access should determine which buildings, systems, and
+data they can query.
+
+Second, the assistant should use a more robust evaluation process. Although the
+tools return data-grounded results, the system should include automated tests
+for tool selection, response accuracy, refusal behavior, and handling of
+insufficient data.
+
+Third, model responses should be monitored in production. The system should log
+the selected model, tool used, response time, token usage, and user feedback so
+that incorrect or unhelpful answers can be identified and improved.
+
+Fourth, secrets and API keys must be managed securely. Local Ollama models reduce
+dependency on external providers, but any external model integration should use
+environment variables or a secure secret manager rather than hardcoded keys.
+
+Fifth, the assistant should include stronger guardrails for ambiguous questions.
+For example, if a user asks about a device or incident that cannot be identified,
+the assistant should ask a clarifying question instead of guessing.
+
+Finally, the user interface should support conversation reset, clearer citations
+to the underlying data, and better handling of long conversations. These changes
+would make the assistant safer, more transparent, and more reliable for
+operational use.
+
+---
+
 ## Summary
 
 Task 5 converts the monitoring dashboard from a visual reporting tool into an
@@ -600,4 +703,5 @@ receive clear explanations about building status, incidents, network problems,
 corrective priorities, and energy consumption.
 
 The assistant uses conversation memory, multiple AI providers, read-only
-database tools, and safe scenario validation.
+database tools, safe scenario validation, automated tests, and production
+readiness planning.
