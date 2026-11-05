@@ -30,6 +30,7 @@
     #meta { margin:6px 0 0; color:var(--muted); font-size:13px; }
     .sub,.muted { color:var(--muted); font-size:13px; }
 
+
     .page-nav {
       display:flex; flex-wrap:wrap; gap:8px;
       margin:18px 0 4px;
@@ -45,6 +46,7 @@
       background:var(--accent); color:#fff; border-color:var(--accent);
     }
     .page[hidden] { display:none; }
+
 
     .filters {
       display:flex; flex-wrap:wrap; gap:12px; align-items:end;
@@ -64,6 +66,7 @@
     #custom-range { display:flex; gap:12px; }
     #custom-range[hidden],#banner[hidden] { display:none; }
 
+
     #banner {
       margin-top:12px; padding:10px 12px; border-radius:8px;
       background:#fee2e2; color:#7f1d1d; border:1px solid #fca5a5;
@@ -81,6 +84,7 @@
     .unit { font-size:14px; font-weight:500; color:var(--muted); }
     .detail { margin:0; font-size:12px; color:var(--muted); min-height:1.2em; }
 
+
     .panel {
       background:var(--card); border:1px solid var(--line);
       border-radius:10px; padding:12px 14px; overflow-x:auto;
@@ -94,6 +98,7 @@
     tbody th { font-weight:600; }
     tr.total th,tr.total td { border-top:2px solid var(--line); }
 
+
     .bar {
       display:flex; height:12px; min-width:120px;
       border-radius:6px; overflow:hidden; background:var(--line);
@@ -103,6 +108,7 @@
     .seg.critical { background:var(--critical); }
     .seg.no_data { background:var(--no_data); }
 
+
     .badge {
       font-size:12px; font-weight:600; padding:2px 8px;
       border-radius:999px; border:1px solid currentColor; white-space:nowrap;
@@ -111,6 +117,7 @@
     .badge.warning { color:var(--warning); }
     .badge.critical { color:var(--critical); }
     .badge.no_data { color:var(--no_data); }
+
 
     .charts {
       display:grid; gap:12px;
@@ -142,6 +149,7 @@
     dd { margin:2px 0 0; color:var(--muted); font-size:14px; }
     .src { font-size:12px; }
 
+
     /* AI Monitoring Center */
     .monitor-intro {
       margin:8px 0 16px; color:var(--muted); font-size:14px;
@@ -169,6 +177,7 @@
     .alert-empty { color:var(--muted); padding:12px 0; }
     .alert-table button { padding:4px 8px; font-size:12px; }
 
+
     .ai-badge {
       display: inline-block;
       padding: 4px 10px;
@@ -178,11 +187,13 @@
       margin-bottom: 8px;
     }
 
+
     .ai-badge.live {
       background: #e6f6ec;
       color: #176b3a;
       border: 1px solid #9fd8b4;
     }
+
 
     .ai-badge.fallback {
       background: #fff4e5;
@@ -190,14 +201,167 @@
       border: 1px solid #f0c48a;
     }
 
+
     .ai-meta {
       font-size: 12px;
       color: var(--muted);
       margin: 4px 0 10px;
     }
 
+
     @media (max-width:760px) {
       .alert-detail .detail-grid { grid-template-columns:minmax(0,1fr); }
+    }
+
+
+    /* Floating AI Assistant chat widget */
+    .assistant-chat-toggle {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 1000;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      font-size: 24px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, .22);
+    }
+
+    .assistant-chat-panel {
+      position: fixed;
+      right: 22px;
+      bottom: 92px;
+      z-index: 1001;
+      width: min(380px, calc(100vw - 32px));
+      max-height: min(560px, calc(100vh - 130px));
+      display: flex;
+      flex-direction: column;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, .25);
+      overflow: hidden;
+    }
+
+    .assistant-chat-panel[hidden] { display: none; }
+
+    .assistant-chat-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 650;
+    }
+
+    .assistant-chat-close {
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 18px;
+      padding: 2px 6px;
+    }
+
+    .assistant-chat-history {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: var(--bg);
+    }
+
+    .assistant-message {
+      max-width: 92%;
+    }
+
+    .assistant-message.user {
+      align-self: flex-end;
+    }
+
+    .assistant-message.assistant {
+      align-self: flex-start;
+    }
+
+    .assistant-bubble {
+      padding: 9px 11px;
+      border-radius: 12px;
+      font-size: 14px;
+      white-space: pre-wrap;
+      border: 1px solid var(--line);
+      background: var(--card);
+    }
+
+    .assistant-message.user .assistant-bubble {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .assistant-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 5px;
+    }
+
+    .assistant-badge {
+      font-size: 10px;
+      font-weight: 650;
+      padding: 2px 7px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--card);
+      color: var(--muted);
+    }
+
+    .assistant-badge.ai-live {
+      color: var(--normal);
+      border-color: var(--normal);
+    }
+
+    .assistant-badge.ai-fallback,
+    .assistant-badge.validation-failed {
+      color: var(--warning);
+      border-color: var(--warning);
+    }
+
+    .assistant-chat-controls {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      padding: 10px 12px;
+      border-top: 1px solid var(--line);
+      background: var(--card);
+    }
+
+    .assistant-chat-controls label {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .assistant-chat-input-row {
+      display: flex;
+      gap: 8px;
+      padding: 0 12px 12px;
+      background: var(--card);
+    }
+
+    .assistant-chat-input-row input {
+      flex: 1;
+    }
+
+    #assistant-chat-status {
+      min-height: 18px;
+      padding: 0 12px 6px;
+      font-size: 12px;
+      color: var(--muted);
+      background: var(--card);
     }
 
     footer {
@@ -211,6 +375,7 @@
     <h1>Building Operations Dashboard</h1>
     <div class="muted">Anzma Tech &middot; Commercial Building A &middot; synthetic data</div>
 
+
     <nav class="page-nav" aria-label="Dashboard pages">
       <button type="button" data-page="operations" aria-selected="true">
         Operations Overview
@@ -220,13 +385,16 @@
       </button>
     </nav>
 
+
     <div id="banner" role="alert" hidden></div>
   </header>
+
 
   <main>
     <!-- PAGE 1: DAY 3 OPERATIONS OVERVIEW -->
     <section id="page-operations" class="page">
       <p id="meta">Loading&hellip;</p>
+
 
       <div class="filters">
         <label>System
@@ -252,8 +420,10 @@
         <button id="apply" type="button">Apply</button>
       </div>
 
+
       <h2>Key performance indicators</h2>
       <section id="kpis" class="grid-kpis" aria-label="Key performance indicators"></section>
+
 
       <h2>Equipment health by system</h2>
       <section class="panel">
@@ -267,6 +437,7 @@
           <tbody id="health-body"></tbody>
         </table>
       </section>
+
 
       <h2>Trends (hourly, UTC)</h2>
       <section class="charts">
@@ -288,6 +459,7 @@
         </div>
       </section>
 
+
       <h2>Operational status by asset</h2>
       <section class="panel">
         <div class="asset-tools">
@@ -305,9 +477,11 @@
         </table>
       </section>
 
+
       <h2>KPI definitions</h2>
       <section class="panel"><dl id="definitions"></dl></section>
     </section>
+
 
     <!-- PAGE 2: DAY 4 AI MONITORING CENTER -->
     <section id="page-monitoring" class="page" hidden>
@@ -316,6 +490,7 @@
         Review detected incidents, inspect their telemetry evidence, understand
         possible causes, and examine recommended corrective actions.
       </p>
+
 
       <section class="panel">
         <div class="alert-toolbar">
@@ -332,10 +507,12 @@
           <button id="alert-refresh" type="button">Load incidents</button>
         </div>
 
+
         <p id="alert-scenario-description" class="sub"></p>
         <p id="alert-status" class="alert-status" aria-live="polite">
           Select a scenario to load its incidents.
         </p>
+
 
         <div class="panel">
           <table class="alert-table">
@@ -352,17 +529,122 @@
           </table>
         </div>
 
+
         <div id="alert-detail" class="alert-detail" hidden></div>
       </section>
     </section>
   </main>
+
 
   <footer>
     All values are calculated from the database when the page loads and change with the filters.
     The data is simulated. Status rules and limitations are in KPI_DEFINITIONS.md.
   </footer>
 
+
+  <!-- Floating AI Assistant chat widget -->
+  <button
+    id="assistant-chat-toggle"
+    class="assistant-chat-toggle"
+    type="button"
+    aria-expanded="false"
+    aria-controls="assistant-chat-panel"
+    title="AI Assistant"
+  >
+    💬
+  </button>
+
+
+  <section
+    id="assistant-chat-panel"
+    class="assistant-chat-panel"
+    hidden
+    aria-label="AI Assistant"
+  >
+    <div class="assistant-chat-header">
+      <span>AI Assistant</span>
+      <button
+        id="assistant-chat-close"
+        class="assistant-chat-close"
+        type="button"
+        aria-label="Close AI Assistant"
+      >
+        ✕
+      </button>
+    </div>
+
+
+    <div
+      id="assistant-chat-history"
+      class="assistant-chat-history"
+      aria-live="polite"
+    ></div>
+
+
+    <div class="assistant-chat-controls">
+      <label>
+        Scenario
+        <select id="assistant-chat-scenario">
+          <option value="baseline">Baseline</option>
+          <option value="S1">S1 - Cooling failure</option>
+          <option value="S2">S2 - Fan collapse</option>
+          <option value="S3">S3 - Packet loss</option>
+          <option value="S4">S4 - CPU overload</option>
+          <option value="S5">S5 - Bandwidth collapse</option>
+          <option value="custom">Custom…</option>
+        </select>
+      </label>
+
+      <label id="assistant-custom-scenario-label" hidden>
+        Custom scenario name
+        <input
+          id="assistant-chat-custom-scenario"
+          type="text"
+          maxlength="50"
+          placeholder="For example: S6"
+        >
+      </label>
+
+
+      <label>
+        Time window
+        <select id="assistant-chat-hours">
+          <option value="1">Last 1 hour</option>
+          <option value="6">Last 6 hours</option>
+          <option value="12">Last 12 hours</option>
+          <option value="24" selected>Last 24 hours</option>
+        </select>
+      </label>
+
+
+      <label>
+        AI model
+        <select id="assistant-chat-model">
+          <option value="qwen" selected>Qwen 2.5 3B</option>
+          <option value="llama">Llama 3.2 3B</option>
+        </select>
+      </label>
+    </div>
+
+
+    <div class="assistant-chat-input-row">
+      <input
+        id="assistant-chat-input"
+        type="text"
+        maxlength="500"
+        placeholder="Ask about the building…"
+        aria-label="Ask the AI assistant"
+      >
+      <button id="assistant-chat-send" type="button">Send</button>
+    </div>
+
+
+    <div id="assistant-chat-status" aria-live="polite"></div>
+  </section>
+
+
   <script src="/static/charts.js"></script>
   <script src="/static/app.js"></script>
+  <script src="/static/assistant_chat.js"></script>
 </body>
 </html>

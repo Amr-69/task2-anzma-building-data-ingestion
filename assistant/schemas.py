@@ -9,6 +9,7 @@ class ChatRequest(BaseModel):
     scenario: str = "baseline"
     hours: Literal[1, 6, 12, 24] = 24
     model: Literal["qwen", "llama"] = "qwen"
+    history: list[dict[str, str]] = Field(default_factory=list)
 
 
 class Validation(BaseModel):
