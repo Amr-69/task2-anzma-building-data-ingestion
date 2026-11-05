@@ -10,6 +10,8 @@ def ask(question, **extra):
     return client.post(URL, json={"question": question, **extra})
 
 
+# ---- Q6 energy ----
+
 def test_energy_english():
     r = ask("How has energy consumption changed?")
     assert r.status_code == 200
@@ -29,6 +31,59 @@ def test_energy_arabic():
     assert "لا يمكن" in body["answer"]
     assert "packet_loss_pct" in body["answer"]
 
+
+# ---- Q1 building status ----
+
+def test_status_english():
+    r = ask("What is the current status of the building?")
+    assert r.status_code == 200
+    body = r.json()
+    assert body["tool_used"] == "get_building_status"
+    assert body["language"] == "en"
+    assert "of 29 assets" in body["answer"]
+    assert body["data_window"]["hours"] == 24
+    assert any(e["type"] == "kpis" for e in body["evidence"])
+
+
+def test_status_arabic():
+    r = ask("ما هي الحالة الحالية للمبنى؟")
+    body = r.json()
+    assert r.status_code == 200
+    assert body["language"] == "ar"
+    assert body["tool_used"] == "get_building_status"
+    assert "أصل" in body["answer"]
+
+
+def test_status_with_scenario():
+    r = ask("What is the current status of the building?", scenario="S1")
+    assert r.status_code == 200
+    assert r.json()["scenario"] == "S1"
+
+
+# ---- Q3 CCTV ----
+
+def test_cctv_english():
+    r = ask("Is CCTV available?")
+    assert r.status_code == 200
+    body = r.json()
+    assert body["tool_used"] == "get_cctv_availability"
+    assert "inferred from heartbeat" in body["answer"]
+    cams = next(e for e in body["evidence"] if e["type"] == "cctv_cameras")["items"]
+    assert len(cams) == 6
+    it = next(c for c in cams if c["asset_code"] == "CCTV-IT")
+    assert it["offline_events"] == 1
+
+
+def test_cctv_arabic():
+    r = ask("هل كاميرات المراقبة متاحة؟")
+    body = r.json()
+    assert r.status_code == 200
+    assert body["language"] == "ar"
+    assert body["tool_used"] == "get_cctv_availability"
+    assert "heartbeat" in body["answer"]
+
+
+# ---- request validation ----
 
 def test_model_selection():
     assert ask("energy?", model="llama").json()["model_used"] == "llama3.2:3b"
