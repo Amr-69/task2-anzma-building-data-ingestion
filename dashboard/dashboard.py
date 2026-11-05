@@ -1,10 +1,10 @@
-
 """Day 3 dashboard and Day 4 alert API.
 
 Day 3 routes continue to use the original baseline database.
 Day 4 alert routes use a fixed allowlist of read-only scenario databases.
 """
 
+import re
 import sqlite3
 from pathlib import Path
 
@@ -26,7 +26,8 @@ router = APIRouter(prefix="/api/v1/dashboard", tags=["Dashboard"])
 ui_router = APIRouter()
 
 
-# Only these database files can be selected through the API.
+# Fixed scenario allowlist. Custom scenarios are resolved safely from the
+# generated scenario directory only when their database already exists.
 SCENARIOS = {
     "baseline": {
         "name": "Baseline",
@@ -59,6 +60,9 @@ SCENARIOS = {
         "path": SCENARIO_DIR / "S5.db",
     },
 }
+
+
+SAFE_SCENARIO_ID = re.compile(r"^[A-Za-z0-9_-]+$")
 
 
 def open_database():
@@ -104,17 +108,48 @@ def run_query(function, *args):
 
 
 def get_scenario(scenario):
-    """Resolve a scenario name through the fixed allowlist."""
+    """Resolve a fixed or validated custom scenario to a read-only database."""
 
-    selected = SCENARIOS.get(scenario)
-
-    if selected is None:
+    if not isinstance(scenario, str) or not scenario.strip():
         raise HTTPException(
             status_code=400,
-            detail="Unknown scenario. Select baseline or S1 through S5.",
+            detail="A scenario must be selected.",
         )
 
-    database = selected["path"]
+    scenario = scenario.strip()
+    selected = SCENARIOS.get(scenario)
+
+    if selected is not None:
+        database = selected["path"]
+    else:
+        # Custom scenarios must use a safe ID and must already exist in the
+        # generated scenario directory. This prevents arbitrary file access.
+        if not SAFE_SCENARIO_ID.fullmatch(scenario):
+            raise HTTPException(
+                status_code=400,
+                detail=(
+                    "Invalid scenario ID. Use baseline, S1 through S5, or a "
+                    "custom scenario ID containing only letters, numbers, "
+                    "hyphens and underscores."
+                ),
+            )
+
+        database = SCENARIO_DIR / f"{scenario}.db"
+
+        if not database.is_file():
+            raise HTTPException(
+                status_code=400,
+                detail=(
+                    "Unknown scenario. Select baseline, S1 through S5, or an "
+                    "existing custom scenario."
+                ),
+            )
+
+        selected = {
+            "name": f"Custom scenario - {scenario}",
+            "description": "User-generated validated scenario.",
+            "path": database,
+        }
 
     if not database.is_file():
         raise HTTPException(
