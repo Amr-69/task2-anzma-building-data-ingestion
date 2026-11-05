@@ -1,4 +1,3 @@
-
 import math
 import sqlite3
 from datetime import datetime, timedelta
@@ -784,3 +783,12 @@ def get_events(
 import dashboard.dashboard as dashboard  # noqa: E402
 
 dashboard.register(app)
+
+
+# ============================================================
+# DAY 5: CONVERSATIONAL ASSISTANT (read-only)
+# ============================================================
+
+from assistant.router import router as assistant_router  # noqa: E402
+
+app.include_router(assistant_router)
